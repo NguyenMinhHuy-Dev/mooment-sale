@@ -25,8 +25,8 @@ module.exports = {
         'gray-50': '#D9D9D9',
       },
       boxShadow: {
-        header: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;',
-        menu: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;'
+        header: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+        menu: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
       },
     },
   },
