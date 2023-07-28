@@ -17,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="relative bg-white">
-        {/* <Navbar /> */}
+        <Navbar />
         {children}
-        {/* <TawkTo /> */}
+        <TawkTo />
       </body>
     </html>
   )
