@@ -11,8 +11,13 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 ::-webkit-scrollbar {
-  width: 7px;
+  position: fixed;
+  width: 7px;  
 }
 
 /* Track */
@@ -55,7 +60,12 @@
   transition: 0.2s linear;
 }
 
-.boldOnHover:hover > a{
+.boldOnHover:hover > a {
+  /* text-shadow: 0 0.015em #101010,0 -0.015em #101010,0.01em 0 #101010,-0.01em 0 #101010; */
+  color: #f39c12;
+}
+
+.linkHover:hover {
   text-shadow: 0 0.015em #101010,0 -0.015em #101010,0.01em 0 #101010,-0.01em 0 #101010;
 }
 

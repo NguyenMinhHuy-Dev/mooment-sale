@@ -6,7 +6,7 @@ import ProductionQuantityLimitsRoundedIcon from '@mui/icons-material/ProductionQ
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { Dialog, Transition } from '@headlessui/react';
-import { fetchProducts } from '@/utils';
+// import { fetchProducts } from '@/utils';
 import Image from 'next/image';
 
 interface CartProps {
@@ -42,13 +42,21 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
     return (
         <>
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-[2000000000000]" onClose={closeModal}>
-                    <Transition.Child as={Fragment}>
+                <Dialog as="div" className="relative " onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment} 
+                        enter="ease-in-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave='ease-in duration-200'
+                        leaveFrom='opacity-100'
+                        leaveTo='opacity-0'
+                    >
                         <div className='fixed inset-0 bg-black bg-opacity-10'> 
                         </div>
                     </Transition.Child>
 
-                    <div className="fixed inset-0">
+                    <div className="fixed inset-0 z-[2000000000001] ">
                         <div className='flex min-h-full items-center justify-end text-center'>
                             <Transition.Child 
                                 as={Fragment}

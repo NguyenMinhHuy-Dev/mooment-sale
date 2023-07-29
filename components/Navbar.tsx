@@ -2,12 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
 import { CustomButton } from './CustomButton';
-import { CategoryHeader } from './CategoryHeader';
+import CategoryHeader from './CategoryHeader';
 import CartMini from './CartMini';
+import Account from './Account';
 
 const Navbar = () => { 
 
@@ -28,8 +28,8 @@ const Navbar = () => {
               <CategoryHeader />
 
               {/* SEARCH */}
-              <div className='mx-[20px] w-full h-[80%] flex justify-between items-center bg-slate-200 rounded-lg overflow-hidden' >
-                <input type='text' placeholder='Bạn đang tìm kiếm gì?' className='w-[94%] h-full pl-4  bg-transparent rounded-lg outline-none'/>
+              <div className='mx-[20px] w-full h-[80%] flex justify-between items-center bg-[#e8e9ec] rounded-lg overflow-hidden' >
+                <input type='text' placeholder='Bạn đang tìm kiếm gì?' className='w-[94%] h-full pl-4 text-[16px] bg-transparent rounded-lg outline-none text-[16px]'/>
                 <div className='w-[6%] h-full flex items-center justify-center'>
                 <SearchIcon className='cursor-pointer'/>
                 </div>
@@ -38,13 +38,13 @@ const Navbar = () => {
 
             <div className='flex justify-between h-full items-center'> 
               {/* HOTLINE */}
-              <Link href="tel:0938745593" className='min-w-[120px] px-2 h-full flex justify-center items-center border-b-[2px] border-white hover:border-b-[2px] hover:border-black transition ease-in-out relative'>
+              <Link href="tel:0938745593" className='min-w-[120px] px-2 h-full text-[13px] flex justify-center items-center border-b-[2px] border-white hover:border-b-[2px] hover:border-black transition ease-in-out relative'>
                   <HeadsetMicOutlinedIcon className='myicon'/>
                   <p><b>Hotline</b> <br></br> 0938745593</p> 
               </Link>
 
               {/* CHI NHÁNH */}
-              <Link href="/chi-nhanh" className='min-w-[120px] px-2 h-full flex justify-center items-center border-b-[2px] border-white hover:border-b-[2px] hover:border-black transition ease-in-out'>
+              <Link href="/chi-nhanh" className='min-w-[120px] px-2 h-full text-[13px] flex justify-center items-center border-b-[2px] border-white hover:border-b-[2px] hover:border-black transition ease-in-out'>
                   <LocationOnOutlinedIcon className='myicon'/>
                   <p>Chi nhánh</p> 
               </Link>
@@ -55,10 +55,7 @@ const Navbar = () => {
               <div className='w-[2px] h-[60%] mx-1 bg-[#d1d1d1]'></div>
 
               {/* USER */}
-              <div className='mx-1 cursor-pointer min-w-[100px] px-2 h-[80%] flex justify-center items-center'>
-                <AccountCircleOutlinedIcon className='myicon'/>
-                <p>Đăng nhập</p>
-              </div>
+              <Account />
             </div>
         </nav>
     </header>
