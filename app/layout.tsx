@@ -1,7 +1,8 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
 import type { Metadata } from 'next' 
-import TawkTo from '@/components/TawkTo';
+import TawkTo from '@/components/TawkTo'; 
+import { Providers } from '@/redux/provider';
  
 
 export const metadata: Metadata = {
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="relative bg-white">
-        <Navbar />
-        {children}
-        <TawkTo />
+        <Providers>
+          <Navbar />
+          {children}
+          <TawkTo />
+        </Providers>
       </body>
     </html>
   )

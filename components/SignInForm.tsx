@@ -1,12 +1,23 @@
-import React from 'react'
+"use client";
+
+import React, { useState } from 'react'; 
+import { useDispatch } from 'react-redux'; 
+import { useAppDispatch } from '@/redux/store';
+import { signIn } from '@/redux/features/auth-slice';
 
 interface SignInFormProps {
     switchToSignUp: () => void
 }
 
 export default function SignInForm({switchToSignUp}: SignInFormProps) {
-    const handleSignIn = () => {
-        alert("In")
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useAppDispatch();
+ 
+    const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(signIn(email));
     }
     return (
         <>
@@ -17,12 +28,12 @@ export default function SignInForm({switchToSignUp}: SignInFormProps) {
                 <form onSubmit={handleSignIn}> 
                     <div className='w-full'>
                         <label htmlFor="username" className='font-normal text-[#646464]'>Email</label>
-                        <input type='email' name="username" placeholder='Email' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required/> 
+                        <input type='email' name="username" placeholder='Email' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required value={email} onChange={(e) => setEmail(e.target.value)} /> 
                         <span className='block w-full text-right text-md leading-4 h-5 text-[#e74c3c] pt-2'></span>
                     </div>
                     <div className='w-full mb-1'>
                         <label htmlFor="password" className='font-normal text-[#646464]'>Mật khẩu</label>
-                        <input type='password' name="password" placeholder='Mật khẩu' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required/> 
+                        <input type='password' name="password" placeholder='Mật khẩu' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required value={password} onChange={(e) => setPassword(e.target.value)}/> 
                         <span className='block w-full text-right text-md leading-4 h-5 text-[#e74c3c] pt-2'></span>
                     </div>
                     <div className='w-full flex justify-between items-center'>
