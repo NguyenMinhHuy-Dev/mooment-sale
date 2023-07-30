@@ -14,6 +14,22 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'bizweb.dktcdn.net'
           }, 
+          {
+            protocol: 'https',
+            hostname: 'theme.hstatic.net'
+          }, 
+          {
+            protocol: 'https',
+            hostname: 'www.paypalobjects.com'
+          }, 
+          {
+            protocol: 'https',
+            hostname: 'img.mservice.io'
+          }, 
+          {
+            protocol: 'https',
+            hostname: 'upload.wikimedia.org'
+          }, 
         ]
     },
     experimental: {

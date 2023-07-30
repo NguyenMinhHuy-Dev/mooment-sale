@@ -96,3 +96,52 @@ body {
   width: 100%;
   height: 100vh;
 } */
+
+.myslide .swiper-pagination-bullet-active {
+  @apply bg-light-yellow;
+} 
+
+.services-item  {
+  width: 100%;
+  height: 180px;
+  min-height: 100%;
+  border-radius: 10px;
+  background-color: #242424;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+}
+
+.services-item .icon {
+  position: absolute;
+  font-size: 250px;
+  top: 50%;
+  z-index: 0;
+  left: -15%;
+  transform: translateY(-50%);
+  color: rgb(19, 19, 19)
+}
+
+.services-item-info {
+  position: relative;
+  text-align: right;
+  z-index: 1;
+}
+
+.services-item span { 
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #fca415;
+  user-select: none;
+}
+
+.services-item p {  
+  font-size: 13px; 
+  color: #fca415; 
+  color: #fff;
+  user-select: none;
+}

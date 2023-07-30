@@ -3,6 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next' 
 import TawkTo from '@/components/TawkTo'; 
 import { Providers } from '@/redux/provider';
+import Footer from '@/components/Footer';
  
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <Footer />
           <TawkTo />
         </Providers>
       </body>

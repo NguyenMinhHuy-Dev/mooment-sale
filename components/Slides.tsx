@@ -9,7 +9,7 @@ import { EffectFade, Autoplay, Pagination } from 'swiper/modules';
 
 export default function Slides() {
   return ( 
-    <div className="w-full h-[calc(100vh-4rem)]"> 
+    <div className="myslide w-full h-[calc(100vh-4rem)] mb-5"> 
         <Swiper
             spaceBetween={30}
             effect={'fade'}
