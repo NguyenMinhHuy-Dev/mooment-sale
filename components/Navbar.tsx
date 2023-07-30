@@ -12,7 +12,7 @@ import Account from './Account';
 const Navbar = () => { 
 
   return (
-    <header className='shadow-header fixed top-0 w-full h-[70px] bg-white'>
+    <header className='shadow-header fixed z-10 top-0 w-full h-[70px] bg-white'>
         <nav className='mygrid relative flex justify-between h-full items-center'>
             {/* LOGO */}
             <Link href="/" className='h-full w-[100px] relative'>
