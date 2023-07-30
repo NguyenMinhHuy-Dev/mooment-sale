@@ -6,10 +6,12 @@ import { useAppDispatch } from '@/redux/store';
 import { signIn } from '@/redux/features/auth-slice';
 
 interface SignInFormProps {
-    switchToSignUp: () => void
+    switchToSignUp: () => void,
+    closeModal: () => void,
 }
 
-export default function SignInForm({switchToSignUp}: SignInFormProps) {
+export default function SignInForm({switchToSignUp, closeModal}: SignInFormProps) {
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,7 +19,8 @@ export default function SignInForm({switchToSignUp}: SignInFormProps) {
  
     const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(signIn(email));
+        dispatch(signIn({ uid: "123", email, fullName }));
+        closeModal();
     }
     return (
         <>
@@ -26,6 +29,11 @@ export default function SignInForm({switchToSignUp}: SignInFormProps) {
             </div>
             <div className='w-full pt-7'>
                 <form onSubmit={handleSignIn}> 
+                    <div className='w-full'>
+                        <label htmlFor="username" className='font-normal text-[#646464]'>Họ và tên</label>
+                        <input type='text' name="fullName" placeholder='Họ và tên' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required value={fullName} onChange={(e) => setFullName(e.target.value)} /> 
+                        <span className='block w-full text-right text-md leading-4 h-5 text-[#e74c3c] pt-2'></span>
+                    </div>
                     <div className='w-full'>
                         <label htmlFor="username" className='font-normal text-[#646464]'>Email</label>
                         <input type='email' name="username" placeholder='Email' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required value={email} onChange={(e) => setEmail(e.target.value)} /> 

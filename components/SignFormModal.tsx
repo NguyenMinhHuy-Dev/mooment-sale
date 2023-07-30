@@ -50,7 +50,7 @@ export const SignFormModal = ({ isOpen, closeModal, isOpenSignIn, switchToSignIn
                     <button type="button" onClick={closeModal} className="absolute top-4 right-4 border-2 border-[#2f3542] rounded hover:bg-[#2f3542] hover:text-white transition"><CloseRoundedIcon /></button>
 
                     {isOpenSignIn && ( 
-                      <SignInForm switchToSignUp={switchToSignUp} /> 
+                      <SignInForm switchToSignUp={switchToSignUp} closeModal={closeModal}/> 
                     )}
 
                     {isOpenSignUp && (

@@ -65,6 +65,17 @@ body {
   color: #f39c12;
 }
 
+.category:hover .spanHover  .myicon,
+.category:hover .spanHover > span, 
+.category:hover .spanHover  button {
+  color: #f39c12;
+}
+ 
+.mydiv:hover  button  .myicon, 
+.mydiv:hover  button { 
+  color: #f39c12;
+}
+
 .linkHover:hover {
   text-shadow: 0 0.015em #101010,0 -0.015em #101010,0.01em 0 #101010,-0.01em 0 #101010;
 }

@@ -1,10 +1,15 @@
-import React from 'react'
+
+import React, { useState } from 'react'; 
 
 interface SignUpFormProps {
     switchToSignIn: () => void
 }
 
 export default function SignUpForm({switchToSignIn}: SignUpFormProps) {
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const handleSignUp = () => {
         alert("UP")
     }
@@ -15,6 +20,11 @@ export default function SignUpForm({switchToSignIn}: SignUpFormProps) {
             </div>
             <div className='w-full pt-7'>
                 <form onSubmit={handleSignUp}> 
+                    <div className='w-full'>
+                        <label htmlFor="username" className='font-normal text-[#646464]'>Họ và tên</label>
+                        <input type='email' name="fullName" placeholder='Họ và tên' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required value={fullName} onChange={(e) => setFullName(e.target.value)} /> 
+                        <span className='block w-full text-right text-md leading-4 h-5 text-[#e74c3c] pt-2'></span>
+                    </div>
                     <div className='w-full'>
                         <label htmlFor="username" className='font-normal text-[#646464]'>Email</label>
                         <input type='email' name="username" placeholder='Email' className='w-full py-3 pl-4 bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' required/> 
