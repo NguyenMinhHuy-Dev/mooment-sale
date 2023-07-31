@@ -91,7 +91,7 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
                                                             // fill
                                                         />   
                                                         <div className='absolute top-[-10px] right-[-10px] flex justify-center items-center bg-[#aeaeae] w-[20px] h-[20px] rounded-full cursor-pointer'>
-                                                            <CloseRoundedIcon className='text-black text-[12px]'/>
+                                                            <CloseRoundedIcon className='text-black !text-[12px]'/>
                                                         </div>
                                                     </div>
                                                     <div className='w-[50%] h-[60px] text-justify'>

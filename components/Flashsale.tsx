@@ -46,7 +46,7 @@ export default function Flashsale({ date }: { date: string }) {
   return ( 
     <div className='mygrid relative mt-[75px] p-2 bg-light-gray rounded-[10px] drop-shadow-xl overflow-hidden'> 
         
-        <PunchClockRoundedIcon className='absolute z-[1] myicon-2 text-[500px] top-[-30%] left-[-7%]'/>
+        <PunchClockRoundedIcon className='absolute z-[1] myicon-2 !text-[500px] top-[-30%] left-[-7%]'/>
         <div className='relative z-[1] w-full flex items-center px-2 justify-between'>
             <h2 className='mb-2 flex items-center font-black text-[35px] tracking-widest uppercase text-white'>
                 Flashsale chính hãng
