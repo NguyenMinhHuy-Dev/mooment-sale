@@ -13,6 +13,10 @@
 }
 
 body {
+  background: white;
+  background-image: radial-gradient(circle at 1px 1px, #444444 1px, transparent 0);
+  background-size: 20px 20px;
+  background-attachment: fixed;
   overflow-y: scroll;
 }
 
@@ -124,6 +128,7 @@ body {
     background-clip: text;
     background-color: #e74c3c;
     background-image: linear-gradient(160deg,#e74c3c,#fca415); 
+  
 }
 
 .myslide .swiper-pagination-bullet-active {
@@ -168,6 +173,7 @@ body {
   justify-content: flex-end;
   align-items: center;
   padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .services-item .icon {
