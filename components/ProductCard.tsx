@@ -6,7 +6,7 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
-export default function ProductCard() {
+export default function ProductCard({ isFlashsale }: { isFlashsale: boolean }) {
   return (
     <div className='w-full overflow-hidden relative rounded-[10px] bg-white'>
         <div className='relative w-full z-0 aspect-square rounded-[10px] overflow-hidden'>
@@ -50,6 +50,16 @@ export default function ProductCard() {
                 </div>
             </div>
         </div>
+        {isFlashsale && (
+            
+            <div className='relative z-[1] mt-2  w-full  rounded-[20px] flex items-center justify-center h-[25px] border-2 border-[#f39c12] bg-[#f39d127a]'>
+                <span className='relative z-[3] font-bold text-black text-[13px]'>Đã bán 10</span>
+                <div className='myprogressbar absolute z-[2] top-0 left-0 w-[90%] h-full rounded-[20px] bg-[#f39c12] border-2 border-[#f39c12] flex items-center justify-end'>
+                    <div className='relative z-[2] myfire w-[30px] h-[30px] rotate-45 rounded'>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
   )
 }

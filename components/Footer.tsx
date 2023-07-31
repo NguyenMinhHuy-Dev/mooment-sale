@@ -8,7 +8,8 @@ export default function Footer() {
         <div className='mygrid h-full py-5 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1'>
             <div className='w-full mt-2'> 
                 <span className='block font-black text-[25px] text-light-yellow'>Mooment Store</span>
-                <span className='text-white'>&copy; 2023</span> 
+                <span className='block text-white text-[13px]'>&copy; 2023 developed by Agearle</span>
+                <span className='block text-white text-[13px]'> All rights reserved.</span> 
             </div> 
             <div className='w-full mt-2'>
                 <h4 className='font-bold text-[16px] text-light-yellow'>VỀ MOOMENT</h4>

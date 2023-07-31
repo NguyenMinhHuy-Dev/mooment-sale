@@ -1,9 +1,11 @@
 // import { useAppSelector } from "./redux/store";
 'use client'
 
+import Flashsale from "@/components/Flashsale";
 import ProductCard from "@/components/ProductCard";
 import ServicesSection from "@/components/ServicesSection";
 import Slides from "@/components/Slides";
+import TopSellerSection from "@/components/TopSellerSection";
 import { useAppSelector } from "@/redux/store"; 
 import { useEffect } from "react";
 
@@ -23,23 +25,8 @@ export default function Home() {
     <div className="mysection  min-h-[2500px]">
       <Slides />
       <ServicesSection />
-      <div className="mygrid min-h-[500px] mt-5 grid grid-cols-5 gap-5">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-        <ProductCard /> 
-      </div>
+      <TopSellerSection />
+      <Flashsale date={"2023-08-02"} />
     </div>
   )
 }
