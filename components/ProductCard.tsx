@@ -18,11 +18,11 @@ export default function ProductCard() {
                     className='object-cover rounded-[10px] transition-all hover:scale-110'
                 />
             </Link> 
-            <div className='absolute z-[1] w-[130px] top-2 right-[-95px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-black/30 transition-all hover:right-0'>
+            <div className='absolute z-[1] w-[130px] h-[30px] top-2 right-[-95px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-black/30 transition-all hover:right-0'>
                 <ShoppingCartOutlinedIcon className='myicon mr-1 text-[20px] text-white '/>
                 <span className='text-[13px] text-white '>Thêm vào giỏ</span>
             </div> 
-            <div className='absolute z-[1] w-[100px] top-12 right-[-65px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-light-red/30 transition-all hover:right-0'> 
+            <div className='absolute z-[1] w-[100px] h-[30px] top-12 right-[-65px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-light-red/30 transition-all hover:right-0'> 
                 {/* <FavoriteRoundedIcon className='myicon mr-1 text-[20px] text-white '/> */}
                 <FavoriteBorderRoundedIcon className='myicon love mr-1 text-[20px] text-black '/>
                 <span className='text-[13px] love text-black '>Yêu thích</span>
