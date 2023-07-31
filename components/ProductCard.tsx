@@ -22,9 +22,9 @@ export default function ProductCard() {
                 <ShoppingCartOutlinedIcon className='myicon mr-1 text-[20px] text-white '/>
                 <span className='text-[13px] text-white '>Thêm vào giỏ</span>
             </div> 
-            <div className='absolute z-[1] w-[100px] h-[30px] top-12 right-[-65px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-light-red/30 transition-all hover:right-0'> 
+            <div className='absolute z-[1] w-[110px] h-[30px] top-12 right-[-75px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-light-red/30 transition-all hover:right-0'> 
                 {/* <FavoriteRoundedIcon className='myicon mr-1 text-[20px] text-white '/> */}
-                <FavoriteBorderRoundedIcon className='myicon love mr-1 text-[20px] text-black '/>
+                <FavoriteBorderRoundedIcon className='myicon love mr-1 !text-[20px] text-black '/>
                 <span className='text-[13px] love text-black '>Yêu thích</span>
             </div> 
         </div> 
