@@ -16,6 +16,7 @@ module.exports = {
         'light-white-400': '#E2E5F1',
         'light-white-500': '#E4E4E4',
         gray: '#4D4A4A',
+        'light-red': '#e74c3c',
         'light-gray': '#242424',
         'dark-yellow': '#f39c12',
         'light-yellow': '#fca415',
@@ -27,7 +28,9 @@ module.exports = {
       },
       boxShadow: {
         header: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        menu: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
+        menu: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+        card: 'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
+        inner: 'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset'
       },
     },
   },

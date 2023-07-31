@@ -71,6 +71,19 @@ body {
   color: #f39c12;
 }
  
+.badge:hover .myicon,
+.badge:hover > span  {
+  color: #f39c12;
+}
+
+
+ 
+.badge:hover .myicon.love,
+.badge:hover > span.love  {
+  color: #fff;
+}
+ 
+ 
 .mydiv:hover  button  .myicon, 
 .mydiv:hover  button { 
   color: #f39c12;

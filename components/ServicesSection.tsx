@@ -6,7 +6,7 @@ import VerifiedUserRoundedIcon from '@mui/icons-material/VerifiedUserRounded';
 
 export default function ServicesSection() {
   return (
-    <div className='mygrid rounded-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 w-full h-[180px] p-2'>
+    <div className='mygrid rounded-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 w-full h-[180px]'>
         <div className='services-item '>
             <LocalShippingRoundedIcon className='icon' />
             <div className='services-item-info'>
