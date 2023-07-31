@@ -220,9 +220,16 @@ body {
 	);
 }
 
+.myprogressbarparent {
+  
+  background-image: radial-gradient(circle at 1px 1px, #e75a4a 1px, transparent 0);
+  background-size: 5px 5px;
+}
+
 .myprogressbar {
   background: linear-gradient(-45deg, #e75a4a, #e77b3c, #fca415, #fca415);
 	background-size: 400% 400%;
+  
 	animation: gradient 5s ease infinite;
 }
 
