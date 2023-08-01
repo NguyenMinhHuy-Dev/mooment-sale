@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded'; 
 
@@ -12,7 +12,25 @@ import ProductCard from './ProductCard';
 import ProductSkeleton from './ProductSkeleton';
 
 export default function TopProductsSection({ category, direction }: { category: String, direction: Boolean }) {
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const getProducts = async () => {
+            await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
+            .then(res => res.json())
+            .then(res => {
+                setProducts(res);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err)
+                setLoading(false);
+            })
+        }
+        setLoading(true);
+        getProducts();
+    },[])
 
     return (
         <div className='mygrid min-h-[500px] my-[50px]'>
@@ -48,16 +66,34 @@ export default function TopProductsSection({ category, direction }: { category: 
 
             <div className='myslide w-full mt-4'> 
                 <div className='w-full grid grid-cols-5 gap-5'>
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
-                    <ProductCard isFlashsale={false} />
+                    {!loading ? (
+                        <>
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} /> 
+                            <ProductCard isFlashsale={false} data={products[0]} />  
+                        </>
+
+                    ) : (
+                        <>
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                            <ProductSkeleton />
+                        </>
+                    )}
                 </div>
                 {/* <Swiper
                     spaceBetween={20}

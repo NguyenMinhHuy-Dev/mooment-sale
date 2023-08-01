@@ -15,9 +15,9 @@
 
 body {
   background: white;
-  /* background-image: radial-gradient(circle at 1px 1px, #444444 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, #444444 1px, transparent 0);
   background-size: 20px 20px;
-  background-attachment: fixed; */
+  background-attachment: fixed;
   overflow-y: scroll;
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 .mygrid {
-  @apply max-w-[1440px] mx-auto;
+  @apply max-w-[1300px] mx-auto;
 }
 
 .myicon {

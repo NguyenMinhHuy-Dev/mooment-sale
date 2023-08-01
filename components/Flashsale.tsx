@@ -15,7 +15,8 @@ export default function Flashsale({ date }: { date: string }) {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
 
-    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false); 
 
     let interval: any;
     
@@ -27,7 +28,7 @@ export default function Flashsale({ date }: { date: string }) {
             const different = destination - now;
 
             const days = Math.floor(different / (1000* 60 * 60 * 24))
-            const hours = Math.floor((different%(1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) - 7 + days * 24;
+            const hours = Math.floor((different%(1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((different%(1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((different%(1000 * 60)) / 1000);
 
@@ -42,9 +43,23 @@ export default function Flashsale({ date }: { date: string }) {
             }
         });
     };
+    const getProducts = async () => {
+        await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
+        .then(res => res.json())
+        .then(res => {
+            setProducts(res);
+            setLoading(false);
+        })
+        .catch((err) => {
+            console.log(err)
+            setLoading(false);
+        })
+    }
 
     useEffect(() => {
         countDown(); 
+        setLoading(true);
+        getProducts();
     },[]);
 
   return ( 
@@ -57,6 +72,8 @@ export default function Flashsale({ date }: { date: string }) {
             </h2> 
             <div className='flex items-center'> 
                 <span className='text-white text-[16px] mr-2'>Kết thúc trong</span>
+                <span className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{days < 10 ? '0' + days :  days}</span>
+                <p className='text-white font-bold text-[16px] mx-1'>d :</p>
                 <span className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{hours < 10 ? '0' + hours :  hours}</span>
                 <p className='text-white font-bold text-[16px] mx-1'>h :</p>
                 <span  className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{minutes < 10 ? '0' + minutes :  minutes}</span>
@@ -71,7 +88,7 @@ export default function Flashsale({ date }: { date: string }) {
                 {!loading ? (
                     <>
                         <h3 className='w-full text-center font-bold text-[20px] text-dark-yellow'>Sản phẩm hot nhất</h3>
-                        <ProductCard isFlashsale={true} />
+                        <ProductCard isFlashsale={true} data={products[0]} />
                     </>
                 ) : (
                     <ProductSkeleton />
@@ -91,17 +108,17 @@ export default function Flashsale({ date }: { date: string }) {
                         modules={[ Navigation, Pagination]} 
                         className="mySwiper h-full"
                     > 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
                     </Swiper>
                 ) : (
                     <div className='w-full grid grid-cols-5 gap-5'>

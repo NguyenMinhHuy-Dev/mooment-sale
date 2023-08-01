@@ -8,9 +8,28 @@ import { EffectFade, Autoplay, Pagination } from 'swiper/modules';
 import WhatshotRoundedIcon from '@mui/icons-material/WhatshotRounded';
 import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
 import ProductSkeleton from './ProductSkeleton';
-
+ 
 export default function BestSellerSection() {
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+ 
+
+  useEffect(() => {
+      const getProducts = async () => {
+          await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
+          .then(res => res.json())
+          .then(res => {
+              setProducts(res);
+              setLoading(false);
+          })
+          .catch((err) => {
+              console.log(err)
+              setLoading(false);
+          })
+      }
+      setLoading(true);
+      getProducts();
+  },[])
 
   return (
     <>
@@ -22,7 +41,7 @@ export default function BestSellerSection() {
             <Diversity1RoundedIcon className='myicon ml-2 text-light-yellow text-[30px]'/>
         </h2>
 
-        {loading ? ( 
+        {!loading ? ( 
           <Swiper  
               loop={true}  
               spaceBetween={20}
@@ -33,16 +52,17 @@ export default function BestSellerSection() {
               modules={[ Pagination]} 
               className="mySwiper h-full"
           > 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
-            <SwiperSlide><ProductCard  isFlashsale={false}  /> </SwiperSlide> 
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
+            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>    
           </Swiper>
         ) : (
           <div className='w-full grid grid-cols-5 gap-5'>
