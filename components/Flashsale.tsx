@@ -44,7 +44,7 @@ export default function Flashsale({ date }: { date: string }) {
     },[]);
 
   return ( 
-    <div className='mygrid relative mt-[75px] p-2 bg-light-gray rounded-[10px] drop-shadow-xl overflow-hidden'> 
+    <div className='mygrid relative mt-[75px] p-2 bg-light-gray rounded-[10px] drop-shadow-xl overflow-hidden shadow-menu'> 
         
         <PunchClockRoundedIcon className='absolute z-[1] myicon-2 !text-[500px] top-[-30%] left-[-7%]'/>
         <div className='relative z-[1] w-full flex items-center px-2 justify-between'>

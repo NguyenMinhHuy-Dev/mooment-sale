@@ -5,9 +5,11 @@ import Flashsale from "@/components/Flashsale";
 import ProductCard from "@/components/ProductCard";
 import ServicesSection from "@/components/ServicesSection";
 import Slides from "@/components/Slides";
-import TopSellerSection from "@/components/TopSellerSection";
+import TopCategoriesSection from "@/components/TopCategoriesSection";
+import BestSellerSection from "@/components/BestSellerSection";
 import { useAppSelector } from "@/redux/store"; 
 import { useEffect } from "react";
+import TopProductsSection from "@/components/TopProductsSection";
 
 
 export default function Home() {
@@ -25,8 +27,15 @@ export default function Home() {
     <div className="mysection  min-h-[2500px]">
       <Slides />
       <ServicesSection />
-      <TopSellerSection />
+      <BestSellerSection />
       <Flashsale date={"2023-08-02"} />
+
+      {/* 0: left, 1: right */}
+      <TopProductsSection category={"KIT bàn phím"} direction={true}/> 
+      <TopProductsSection category={"Switch"} direction={true}/> 
+      <TopProductsSection category={"Keycap"} direction={true}/> 
+
+      {/* <TopCategoriesSection /> */}
     </div>
   )
 }

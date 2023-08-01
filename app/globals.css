@@ -233,6 +233,14 @@ body {
 	animation: gradient 5s ease infinite;
 }
 
+.myshadow { 
+  border: 1px solid #d1d1d1;
+  font-weight: 600;
+  color:#4b4a4a;
+  margin-left: 5px; 
+}
+ 
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;

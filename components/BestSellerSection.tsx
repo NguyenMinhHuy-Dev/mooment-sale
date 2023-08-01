@@ -8,7 +8,7 @@ import { EffectFade, Autoplay, Pagination } from 'swiper/modules';
 import WhatshotRoundedIcon from '@mui/icons-material/WhatshotRounded';
 import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
 
-export default function TopSellerSection() {
+export default function BestSellerSection() {
   return (
     <>
     <div className='mygrid h-[1px] bg-[#a8a6a6] mt-8'></div>
