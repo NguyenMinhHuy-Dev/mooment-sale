@@ -40,7 +40,7 @@ body {
 }
 
 .mygrid {
-  @apply max-w-[1300px] mx-auto;
+  @apply max-w-[1400px] mx-auto;
 }
 
 .myicon {
@@ -256,3 +256,37 @@ body {
 		background-position: 0% 50%;
 	}
 } 
+
+.mycard {  
+  width: 400px;
+  height: 180px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 rgb(0, 0, 0);
+  background-color: #fff;
+  padding: 10px 10px;
+  position: relative; 
+}
+
+.mycard::after {
+  position: absolute;
+  content: "";
+  height: 40px;
+  right: -20px;
+  border-radius: 40px;
+  z-index: 1;
+  top: 70px;
+  background-color: #242424;
+  width: 40px;
+}
+
+.mycard::before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  left: -20px;
+  border-radius: 40px;
+  z-index: 1;
+  top: 70px;
+  background-color: #242424;
+  width: 40px;
+}
