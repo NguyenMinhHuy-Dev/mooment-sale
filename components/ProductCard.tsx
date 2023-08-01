@@ -9,13 +9,13 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 export default function ProductCard({ isFlashsale }: { isFlashsale: boolean }) {
   return (
     <div className='w-full overflow-hidden relative rounded-[10px] drop-shadow-xl'>
-        <div className='relative w-full z-0 aspect-square rounded-[10px] overflow-hidden'>
-            <Link href="/san-pham" className='w-full aspect-square rounded-[10px]'>
+        <div className=' relative w-full z-0 aspect-square rounded-[10px] overflow-hidden'>
+            <Link href="/san-pham" className='w-[90%] aspect-square rounded-[10px]'>
                 <Image 
                     src="https://bizweb.dktcdn.net/thumb/large/100/438/322/products/img-6846.jpg?v=1690496709043"
                     alt='product'
                     fill
-                    className='object-cover rounded-[10px] transition-all hover:scale-110'
+                    className='object-cover rounded-[10px] transition-all hover:scale-125'
                 />
             </Link> 
             <div className='absolute z-[1] w-[130px] h-[30px] top-2 right-[-95px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-black/30 transition-all hover:right-0'>

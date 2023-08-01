@@ -9,6 +9,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -20,26 +21,23 @@ body {
   overflow-y: scroll;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   position: fixed;
   width: 7px;  
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #ffffff;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #372948; 
   height: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #1b1424;
-}
+} */
 
 .mygrid {
   @apply max-w-[1440px] mx-auto;
@@ -243,7 +241,7 @@ body {
 .myskeleton {
   background: linear-gradient(-45deg, #9c9c9c,rgba(156, 156, 156, 0.76), rgba(235, 235, 235, 0.596));
 	background-size: 400% 400%;
-	animation: gradient 3s ease infinite;
+	/* animation: gradient 3s ease infinite; */
 }
 
 @keyframes gradient {
@@ -256,4 +254,4 @@ body {
 	100% {
 		background-position: 0% 50%;
 	}
-}
+} 

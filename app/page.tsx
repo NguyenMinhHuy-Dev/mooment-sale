@@ -10,6 +10,7 @@ import BestSellerSection from "@/components/BestSellerSection";
 import { useAppSelector } from "@/redux/store"; 
 import { useEffect } from "react";
 import TopProductsSection from "@/components/TopProductsSection";
+import PreOrderSection from "@/components/PreOrderSection";
 
 
 export default function Home() {
@@ -33,7 +34,9 @@ export default function Home() {
       {/* 0: left, 1: right */}
       <TopProductsSection category={"KIT bàn phím"} direction={true}/> 
       <TopProductsSection category={"Switch"} direction={true}/> 
-      <TopProductsSection category={"Keycap"} direction={true}/> 
+      <TopProductsSection category={"Keycap"}  direction={true}/> 
+
+      {/* <PreOrderSection /> */}
 
       {/* <TopCategoriesSection /> */}
     </div>
