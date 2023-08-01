@@ -12,7 +12,7 @@ import ProductCard from './ProductCard';
 import ProductSkeleton from './ProductSkeleton';
 
 export default function TopProductsSection({ category, direction }: { category: String, direction: Boolean }) {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     return (
         <div className='mygrid min-h-[500px] my-[50px]'>
@@ -47,16 +47,28 @@ export default function TopProductsSection({ category, direction }: { category: 
             </div>
 
             <div className='myslide w-full mt-4'> 
-                <Swiper
+                <div className='w-full grid grid-cols-5 gap-5'>
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                    <ProductCard isFlashsale={false} />
+                </div>
+                {/* <Swiper
                     spaceBetween={20}
                     slidesPerView={5}
                     navigation={true} 
                     loop={true} 
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }} 
-                    modules={[ Navigation, Autoplay]} 
+                    // autoplay={{
+                    //     delay: 3000,
+                    //     disableOnInteraction: false,
+                    // }} 
+                    modules={[ Navigation]} 
                     className="mySwiper h-full"
                 >
                     {!loading ? (
@@ -92,11 +104,11 @@ export default function TopProductsSection({ category, direction }: { category: 
                     slidesPerView={5}
                     navigation={true} 
                     loop={true} 
-                    autoplay={{
-                        delay: 4000,
-                        disableOnInteraction: false,
-                    }} 
-                    modules={[ Navigation, Autoplay]} 
+                    // autoplay={{
+                    //     delay: 4000,
+                    //     disableOnInteraction: false,
+                    // }} 
+                    modules={[ Navigation]} 
                     className="mySwiper h-full mt-4"
                 >
                     {!loading ? (
@@ -125,7 +137,7 @@ export default function TopProductsSection({ category, direction }: { category: 
                             <SwiperSlide><ProductSkeleton /></SwiperSlide>
                         </>
                     )}
-                </Swiper>
+                </Swiper> */}
             </div>
         </div>
     )

@@ -15,13 +15,13 @@
 
 body {
   background: white;
-  background-image: radial-gradient(circle at 1px 1px, #444444 1px, transparent 0);
+  /* background-image: radial-gradient(circle at 1px 1px, #444444 1px, transparent 0);
   background-size: 20px 20px;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   overflow-y: scroll;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   position: fixed;
   width: 7px;  
 }
@@ -37,7 +37,7 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #1b1424;
-} */
+}
 
 .mygrid {
   @apply max-w-[1440px] mx-auto;
@@ -239,8 +239,9 @@ body {
 }
  
 .myskeleton {
-  background: linear-gradient(-45deg, #9c9c9c,rgba(156, 156, 156, 0.76), rgba(235, 235, 235, 0.596));
-	background-size: 400% 400%;
+  background-color: #c6c6c6;
+  /* background: linear-gradient(-45deg, #9c9c9c,rgba(156, 156, 156, 0.76), rgba(235, 235, 235, 0.596));
+	background-size: 400% 400%; */
 	/* animation: gradient 3s ease infinite; */
 }
 
