@@ -7,12 +7,16 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from 'swiper/modules';
+import ProductSkeleton from './ProductSkeleton';
 
 export default function Flashsale({ date }: { date: string }) {
     const [days, setDays] = useState(0);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
+
+    const [loading, setLoading] = useState(true);
+
     let interval: any;
     
     const countDown = () => { 
@@ -61,35 +65,53 @@ export default function Flashsale({ date }: { date: string }) {
                 <p  className='text-white font-bold text-[16px] mx-1'>s</p>
             </div>
         </div>
+
         <div className='relative z-[2] w-full h-full flex bg-white p-2 rounded'>
             <div className='w-[20%]'>
-                <h3 className='w-full text-center font-bold text-[20px] text-dark-yellow'>Sản phẩm hot nhất</h3>
-                <ProductCard isFlashsale={true} />
+                {!loading ? (
+                    <>
+                        <h3 className='w-full text-center font-bold text-[20px] text-dark-yellow'>Sản phẩm hot nhất</h3>
+                        <ProductCard isFlashsale={true} />
+                    </>
+                ) : (
+                    <ProductSkeleton />
+                )}
             </div>
             <div className='relative w-[2px] aspect-video rounded bg-[#d1d1d1] mx-3'></div>
             <div className=' myslide w-[80%] h-auto'>
-                <Swiper   
-                    spaceBetween={20}
-                    slidesPerView={5}
-                    navigation={true}
-                    pagination={{
-                    clickable: true,
-                    }}
-                    modules={[ Navigation, Pagination]} 
-                    className="mySwiper h-full"
-                > 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                    <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
-                </Swiper>
+                {!loading ? (
+
+                    <Swiper   
+                        spaceBetween={20}
+                        slidesPerView={5}
+                        navigation={true}
+                        pagination={{
+                        clickable: true,
+                        }}
+                        modules={[ Navigation, Pagination]} 
+                        className="mySwiper h-full"
+                    > 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                        <SwiperSlide><ProductCard  isFlashsale={true}  /> </SwiperSlide> 
+                    </Swiper>
+                ) : (
+                    <div className='w-full grid grid-cols-5 gap-5'>
+                        <ProductSkeleton />
+                        <ProductSkeleton />
+                        <ProductSkeleton />
+                        <ProductSkeleton />
+                        <ProductSkeleton />
+                    </div>
+                )}
             </div>
         </div>
     </div>
