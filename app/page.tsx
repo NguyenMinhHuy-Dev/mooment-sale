@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import TopProductsSection from "@/components/TopProductsSection";
 import PreOrderSection from "@/components/PreOrderSection";
 import VouchersSection from "@/components/VouchersSection";
+import SubscribeFormSection from "@/components/SubscribeFormSection";
 
 
 export default function Home() {
@@ -38,6 +39,7 @@ export default function Home() {
       <TopProductsSection category={"Keycap"}  direction={true}/> 
 
       <VouchersSection />
+      <SubscribeFormSection />
 
       {/* <PreOrderSection /> */}
 

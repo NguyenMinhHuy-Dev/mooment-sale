@@ -5,7 +5,8 @@ import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import InterestsOutlinedIcon from '@mui/icons-material/InterestsOutlined';
-import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
+import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined'; 
+import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { logOut } from '@/redux/features/auth-slice';
 import Link from 'next/link';
@@ -52,7 +53,14 @@ export default function UserHeader() {
                         Đã xem gần đây
                     </Link>
                 </div>
-                
+
+                <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
+                    <Link href="/tai-khoan/ma-giam-gia" className='flex w-full h-full items-center justify-start'>
+                        <StyleOutlinedIcon className='myicon'/>
+                        Kho voucher
+                    </Link>
+                </div>
+
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
                     <Link href="/tai-khoan/yeu-thich" className='flex w-full h-full items-center justify-start'>
                         <InterestsOutlinedIcon className='myicon'/>

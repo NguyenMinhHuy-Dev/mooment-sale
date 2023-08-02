@@ -17,7 +17,7 @@ const Navbar = () => {
             {/* LOGO */}
             <Link href="/" className='h-full w-[100px] relative'>
                 <Image
-                    src="/logo-1.png"
+                    src="/logo-1.png" 
                     alt='Mooment Logo'
                     fill
                 />
