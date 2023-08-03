@@ -19,6 +19,7 @@
     "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
+    "isomorphic-unfetch": "^4.0.2",
     "jsonp": "^0.2.1",
     "next": "13.4.12",
     "postcss": "8.4.27",
