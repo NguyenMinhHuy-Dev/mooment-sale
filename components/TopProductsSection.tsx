@@ -20,11 +20,13 @@ export default function TopProductsSection({ category, direction }: { category: 
             await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
             .then(res => res.json())
             .then(res => {
-                setProducts(res);
+                // res.map((item: any) => {
+                //     console.log(item.category.name.toString());
+                // })
+                setProducts(res.filter((item: any) => item.category.name === category));
                 setLoading(false);
             })
-            .catch((err) => {
-                console.log(err)
+            .catch((err) => { 
                 setLoading(false);
             })
         }
@@ -67,18 +69,21 @@ export default function TopProductsSection({ category, direction }: { category: 
             <div className='myslide w-full mt-4'> 
                 <div className='w-full grid grid-cols-5 gap-5'>
                     {!loading ? (
-                        <>
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} /> 
-                            <ProductCard isFlashsale={false} data={products[0]} />  
-                        </>
+                        products.map((product: any) => 
+                            <ProductCard key={product._id} isFlashsale={false} data={product} /> 
+                        )
+                        // <>
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} /> 
+                        //     <ProductCard isFlashsale={false} data={products[0]} />  
+                        // </>
 
                     ) : (
                         <>

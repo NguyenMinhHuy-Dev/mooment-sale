@@ -28,8 +28,7 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
             await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
             .then(res => res.json())
             .then(res => {
-                setProducts(res);
-                console.log(res);
+                setProducts(res); 
             })
             .catch((err) => {
                 console.log(err)

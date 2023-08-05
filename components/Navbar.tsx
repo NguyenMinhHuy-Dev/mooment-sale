@@ -1,3 +1,5 @@
+// 'use client'
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -8,8 +10,11 @@ import { CustomButton } from './CustomButton';
 import CategoryHeader from './CategoryHeader';
 import CartMini from './CartMini';
 import Account from './Account';
+import { useSearchParams } from 'next/navigation'
 
 const Navbar = () => { 
+  // const searchParams = useSearchParams();
+  // const category = params?.slug;
 
   return (
     <header className='shadow-header fixed z-10 top-0 w-full h-[70px] bg-white'>
@@ -58,6 +63,7 @@ const Navbar = () => {
               <Account />
             </div>
         </nav>
+        <div className='w-full h-[1px] bg-[#d1d1d1]'></div>
     </header>
   )
 }

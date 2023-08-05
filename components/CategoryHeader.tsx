@@ -5,7 +5,7 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 
 export default async function CategoryHeader() {
-    const categories = await fetchCategories();  
+    const categories = await fetchCategories();   
     const isCategoriesEmpty = !Array.isArray(categories) ||  categories.length < 1 || !categories;
 
     return (
@@ -23,7 +23,7 @@ export default async function CategoryHeader() {
                             key={category._id}
                             className='mycategory boldOnHover'
                         >
-                            <Link href={`${category.slug}`} className='flex justify-between items-center py-2 text-[13px] font-bold hover:text-dark-yellow'>
+                            <Link href={`/danh-muc/${category.slug}`} className='flex justify-between items-center py-2 text-[13px] font-bold hover:text-dark-yellow'>
                                 {category.name}
                                 <KeyboardDoubleArrowRightRoundedIcon />
                             </Link>
@@ -38,7 +38,7 @@ export default async function CategoryHeader() {
                                     {collection?.items.map((item: any) =>
                                     <li key={`${item._id}`} className='w-full my-1 boldOnHover'>
                                         <Link
-                                        href={`/${category.slug}/${item.slug}`}
+                                        href={`/danh-muc/${category.slug}?${collection.tag}=${item.slug}`}
                                         className='inline-block h-full w-full font-normal text-[13px]'
                                         >
                                             {item.title}

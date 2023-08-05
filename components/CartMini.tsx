@@ -4,12 +4,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Cart } from './CartModal';
 
 export default function CartMini() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    useEffect(() => {
-        console.log(isOpen)
-
-    })
+    const [isOpen, setIsOpen] = useState(false); 
 
     return (
         <>

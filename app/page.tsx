@@ -35,8 +35,8 @@ export default function Home() {
       <Flashsale date={"2023-08-02"} />
 
       {/* 0: left, 1: right */}
-      <TopProductsSection category={"KIT bàn phím"} direction={true}/> 
-      <TopProductsSection category={"Switch"} direction={true}/> 
+      <TopProductsSection category={"KIT bàn phím cơ"} direction={true}/> 
+      <TopProductsSection category={"Switch bàn phím cơ"} direction={true}/> 
       <TopProductsSection category={"Keycap"}  direction={true}/> 
 
       <VouchersSection />

@@ -34,6 +34,10 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'dummyimage.com'
           }, 
+          {
+            protocol: 'https',
+            hostname: 'scontent.fsgn5-8.fna.fbcdn.net'
+          }, 
         ]
     },
     experimental: {
