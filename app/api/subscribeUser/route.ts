@@ -50,9 +50,9 @@ export async function POST(request: Request) {
             });
         }
         return NextResponse.json({
-            error: '',
+            message: 'Subscribed successful',
         }, {
-            status: 201,
+            status: 200,
         })
     }
     catch (err: any) { 
