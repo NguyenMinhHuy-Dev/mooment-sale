@@ -39,19 +39,22 @@ export default function SubscribeFormSection() {
                             <span className='font-black text-[25px] text-white'>{message} 🎉🎉</span>
                         </div>
                     ) : (
-                        <form onSubmit={onSubmit} className='shadow-xl mt-4 w-full h-[100px] p-6 flex items-center rounded-[10px] mygradientbackground'>
-                            <input
-                                placeholder='Đăng ký nhận ưu đãi với email'
-                                type='email'
-                                name='email'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                // required
-                                
-                                className='flex-1 full px-2 py-4 outline-none border-2 border-[#464646] text-[16px] text-white bg-[#464646] rounded focus:border-[#000]'
-                            />
-                            <button type='submit' className=' inline-block px-4 py-4 text-[16px] uppercase bg-light-gray text-white font-bold  ml-4 rounded transition-all hover:bg-white hover:text-black'>Đăng ký</button>
-                        </form> 
+                        <div className='shadow-xl mt-4 w-full p-6 pt-7 flex items-center flex-col rounded-[10px] mygradientbackground'> 
+                            <form onSubmit={onSubmit} className='w-full inline-flex'>
+                                <input
+                                    placeholder='Đăng ký nhận ưu đãi với email'
+                                    type='email'
+                                    name='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    // required
+                                    
+                                    className='flex-1 full px-2 py-4 outline-none border-2 border-[#464646] text-[16px] text-white bg-[#464646] rounded focus:border-[#000]'
+                                />
+                                <button type='submit' className=' inline-block px-4 py-4 text-[16px] uppercase bg-light-gray text-white font-bold  ml-4 rounded transition-all hover:bg-white hover:text-black'>Đăng ký</button>
+                            </form> 
+                            <span className='w-full text-left italic text-[13px] text-white ml-2 mt-1'>*Bạn có thể hủy đăng ký bất cứ lúc nào</span>
+                        </div>
                     )}
                 </>
             )}

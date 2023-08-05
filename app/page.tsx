@@ -13,6 +13,7 @@ import TopProductsSection from "@/components/TopProductsSection";
 import PreOrderSection from "@/components/PreOrderSection";
 import VouchersSection from "@/components/VouchersSection";
 import SubscribeFormSection from "@/components/SubscribeFormSection";
+import NewsSection from "@/components/NewsSection";
 
 
 export default function Home() {
@@ -40,6 +41,7 @@ export default function Home() {
 
       <VouchersSection />
       <SubscribeFormSection />
+      <NewsSection />
 
       {/* <PreOrderSection /> */}
 
