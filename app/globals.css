@@ -379,3 +379,48 @@ body {
   }
   
 
+input[type=radio],
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+.geekmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+  border: 2px solid #000;
+} 
+.mymain:hover input ~ .geekmark {
+  background-color: #6e6e6e;
+} 
+
+.mymain input:checked ~ .geekmark {
+  background-color: #fca415;
+}
+
+.geekmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.mymain input:checked ~ .geekmark:after {
+  display: block;
+}
+
+.mymain .geekmark:after {
+  /* left: 50%; */
+  left: 5px;
+  bottom: 3px;
+  /* top: 50%; */
+  width: 7px;
+  height: 12px;
+  border: solid black;
+  border-width: 0 4px 4px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

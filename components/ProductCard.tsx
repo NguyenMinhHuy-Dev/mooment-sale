@@ -62,8 +62,15 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                 
                 <div className='w-full flex'>
                     <div className='w-[50%]'>
-                        <span className='font-bold text-[16px] text-light-red'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.costPrice)}</span>
-                        <span className='line-through text-[13px] block'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.salePrice)}</span>
+                        {data?.normalPrice !== data?.salePrice ? (
+                            <>
+                                <span className='font-bold text-[16px] text-light-red'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.salePrice)}</span>
+                                <span className='line-through text-[13px] block'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.normalPrice)}</span>
+                            </>
+                        ) : (
+                            <span className='font-bold text-[16px] text-light-red'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.normalPrice)}</span>
+                        )}
+                        
                     </div>
                     <div className='w-[50%] text-right'> 
                         <span className='text-light-red text-[13px] font-bold p-2 border border-light-red rounded bg-[#ebcac6a6]'>-12%</span>
