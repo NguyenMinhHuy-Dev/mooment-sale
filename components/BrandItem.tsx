@@ -13,7 +13,7 @@ export default function BrandItem({ data }: any) {
         generateColor();
     }, []);
   return (
-    <Link href={`?hang=${data?.slug}`} className='flex flex-wrap items-center justify-center py-3 px-5 rounded text-[16px] bg-black font-semibold mr-2 text-black'>
+    <Link href={`?hang=${data?.slug}`} className='flex flex-wrap items-center justify-center py-3 px-5 rounded-[10px] text-[16px] bg-black font-semibold mr-2 text-black'>
         <Image
             src={
                 data?.logo ? (

@@ -49,7 +49,7 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                 </div> 
             </div> 
 
-            <div className='relative z-[1] py-2 w-full h-[100px] bg-white flex flex-col justify-between rounded-[10px] mt-2 p-2 border-2 border-[#d1d1d1]'>
+            <div className='relative z-[1] py-2 w-full h-[100px] bg-white flex flex-col justify-between rounded-[10px] mt-4 p-2 border-2 border-[#d1d1d1]'>
                 <div className='w-full flex justify-between'>
                     <div className="overflow-hidden w-90% h-[45px]">
                         <Link href="/san-pham" className="font-medium text-[16px] leading-5 line-clamp-2 overflow-hidden whitespace-pre-wrap hover:text-light-yellow">
