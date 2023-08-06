@@ -33,7 +33,7 @@ export default function ImageFaded({ className, onLoad, crossOrigin: _, src, ...
             className={className}
             style={{
                 opacity: loaded ? '1' : '0',
-                transition: 'all 0.4s ease-in'
+                transition: 'all 0.2s ease-in-out'
             }}
             onLoad={(e) => {
                 setLoaded(true)

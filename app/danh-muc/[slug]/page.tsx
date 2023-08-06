@@ -16,8 +16,7 @@ import ProductsPagination from '@/components/ProductsPagination';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-
-const pageSize = 1;  
+ 
 
 export default function Products({ params }: { params: { slug: string } }) {  
     const searchParams = useSearchParams();
@@ -37,6 +36,7 @@ export default function Products({ params }: { params: { slug: string } }) {
     const [isSold, setIsSold] = useState(false); 
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(1);
 
     const getCategory = async (slug: string) => {
         const res = await fetchCategory(slug); 
@@ -52,8 +52,12 @@ export default function Products({ params }: { params: { slug: string } }) {
         // await setProducts(result.filter((item: any) => item.category.slug === slug)); 
         await setProducts(result);  
 
-        const firstPageIndex = (currentPage - 1) * pageSize;
-        const lastPageIndex = firstPageIndex + pageSize;  
+        await setPageSize(16 > result.length ? result.length : 16);
+        
+        const tempPageSize = 16 > result.length ? result.length : 16;
+
+        const firstPageIndex = (currentPage - 1) * tempPageSize;
+        const lastPageIndex = firstPageIndex + tempPageSize;  
         await setData(result.slice(firstPageIndex, lastPageIndex))
     }
    
@@ -158,9 +162,17 @@ export default function Products({ params }: { params: { slug: string } }) {
                         {brands && brands.map((item: any) => <BrandItem key={item._id} data={item} />)}
                     </div>
                 }
-                <div className='w-full mt-5 mb-[50px] flex items-center justify-between'>
-                    <div className='w-[20%] h-full bg-white shadow-header rounded-[10px]'>
-                    
+                <div className='w-full mt-5 mb-[50px] flex justify-between'>
+                    <div className='w-[20%] p-3  bg-white shadow-header rounded-[10px]'> 
+                        <div className='w-full'>
+                            <h3 className='font-medium text-[16px] mb-1'>Giá tiền</h3>
+                            <ul className='w-full'>
+                                <li className='text-[13px]'>
+                                    {/* <input /> */}
+                                    Dưới 500 nghìn
+                                </li> 
+                            </ul>
+                        </div>
                     </div>
 
                     <div className='w-[80%] ml-5 h-full '>
@@ -207,10 +219,25 @@ export default function Products({ params }: { params: { slug: string } }) {
                                 
                             </div>
                         </div>
-                        <div className='w-full grid grid-cols-4 mt-3 gap-3'>
+                        <div className='w-full min-h-[600px] grid grid-cols-4 mt-3 gap-3'>
                             {data && data?.map((item: any) =>  
                                 <ProductCard key={item._id} isFlashsale={false} data={item} />   
                             )}
+                        </div>
+                        <div className='w-full p-3 flex items-center justify-between bg-white shadow-card rounded-[10px]'>
+                            <div className='text-left flex items-center'>
+                            </div>
+
+                            <div className='flex items-center'> 
+                                <span onClick={onClickPrev} className={`px-1 py-1 mx-2 select-none rounded border-2 ${currentPage > 1 ? 'border-light-gray cursor-pointer' : 'border-[#d1d1d1] cursor-default'}`}><ArrowBackIosNewRoundedIcon className={`!text-[12px] ${currentPage > 1 ? 'text-light-gray' : 'text-[#d1d1d1]'}`} /></span>
+
+                                {Array.apply(null, Array(products.length / pageSize)).map(function (_, i) {return (
+                                    <span onClick={e => onClickGoToPage(i + 1)} className={`px-2 py-1 mx-1 rounded border-2 select-none cursor-pointer border-light-gray  ${currentPage === i + 1 ? 'bg-light-gray text-white' : 'bg-white text-black'}`}>{i + 1}</span>
+                                );})}
+
+                                <span onClick={onClickNext} className={`px-1 py-1 mx-2 select-none rounded border-2 ${currentPage < products.length / pageSize ? 'border-light-gray cursor-pointer' : 'border-[#d1d1d1] cursor-default'}`}><ArrowForwardIosRoundedIcon  className={`!text-[12px] ${currentPage < products.length / pageSize ? 'text-light-gray' : 'text-[#d1d1d1]'}`}/></span>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

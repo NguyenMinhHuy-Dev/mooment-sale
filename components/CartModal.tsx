@@ -94,7 +94,7 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
                                                         </div>
                                                     </div>
                                                     <div className='w-[50%] h-[60px] text-justify'>
-                                                        <div className='overflow-hidden w-full h-[40px] '>
+                                                        <div className='text-left overflow-hidden w-full h-[40px] '>
                                                             <span className='font-medium text-[18px] leading-5 line-clamp-2 overflow-hidden whitespace-pre-wrap'> 
                                                                 {product.name}
                                                             </span>

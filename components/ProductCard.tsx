@@ -32,7 +32,7 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                             ? data?.imageUrl
                             : "https://dummyimage.com/600x400/f5f5f5/aaaaaa?text=%E2%80%93%20Image%20%E2%80%93"
                         } 
-                        className="w-full h-full object-cover rounded-[10px] transition-all hover:scale-125"
+                        className="w-full h-full object-cover rounded-[10px] transition ease-in-out duration-0 hover:duration-75 hover:scale-[1.1]"
                         alt={data?.name}
                     />
                 </Link> 
