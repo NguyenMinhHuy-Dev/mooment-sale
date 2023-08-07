@@ -49,7 +49,7 @@ export default function Products({ params }: { params: { slug: string } }) {
     const [totalPages, setTotalPages] = useState(1);
 
     const [brands, setBrands] = useState([]); 
-    const [category, setCategory] = useState({});
+    const [category, setCategory] = useState<null | any>({});
     const [products, setProducts] = useState([]); 
     const [data, setData] = useState([]);  
 
