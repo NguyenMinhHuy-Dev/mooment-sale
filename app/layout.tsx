@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import TawkTo from '@/components/TawkTo'; 
 import { Providers } from '@/redux/provider';
 import Footer from '@/components/Footer';
- 
 
 export const metadata: Metadata = {
   title: 'Mooment | Bàn phím cơ cao cấp - chính hãng',
@@ -16,6 +15,7 @@ export const metadata: Metadata = {
   }
 }
 
+
 export default function RootLayout({
   children,
 }: {
@@ -25,10 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative bg-white">
         <Providers>
-          <Navbar />
-          {children}
-          <Footer />
-          <TawkTo />
+            <Navbar />
+            {children}
+            <Footer />
+            <TawkTo />
         </Providers>
       </body>
     </html>
