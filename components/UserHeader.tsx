@@ -12,7 +12,7 @@ import { logOut } from '@/redux/features/auth-slice';
 import Link from 'next/link';
 
 export default function UserHeader() {
-    const user = useAppSelector((state) => state.authReducer.value.user);
+    const user: any = useAppSelector((state) => state.authReducer.value.user);
 
     const dispatch = useAppDispatch();
 
