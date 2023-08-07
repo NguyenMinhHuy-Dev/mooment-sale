@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Navbar.tsx", "redux/features/cart-slice.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Navbar.tsx", "redux/features/cart-slice.js", "redux/features/auth-slice.js"],
   "exclude": ["node_modules"]
 }

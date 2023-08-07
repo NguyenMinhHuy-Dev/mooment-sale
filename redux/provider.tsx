@@ -9,9 +9,9 @@ import React from "react"
 let persistor = persistStore(store)
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    return <Provider store={store}>;
+    return <Provider store={store}>
             <PersistGate persistor={persistor}>     
                 {children}
-          </PersistGate>
-        </Provider>;
+            </PersistGate>
+          </Provider>
 }

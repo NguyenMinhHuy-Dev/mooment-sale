@@ -49,6 +49,7 @@ export default function Products({ params }: { params: { slug: string } }) {
     const [totalPages, setTotalPages] = useState(1);
 
     const [brands, setBrands] = useState([]); 
+    const [category, setCategory] = useState({});
     const [products, setProducts] = useState([]); 
     const [data, setData] = useState([]);  
 
@@ -130,10 +131,15 @@ export default function Products({ params }: { params: { slug: string } }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetchProducts(); 
+                const resCate = await fetchCategory(slug);
+                console.log(resCate)
+                await setCategory(resCate[0]);
+
+                const res = await fetchProducts();  
+                
                 await setTotalPages(res.length / pageSize);
-                await setProducts(res); 
-                await setData(res);    
+                await setProducts(res.filter((item: any) => item.category.slug === slug)); 
+                await setData(res.filter((item: any) => item.category.slug === slug));    
                 
                 const resBrands = await fetchBrands();
                 await setBrands(resBrands);
@@ -170,9 +176,10 @@ export default function Products({ params }: { params: { slug: string } }) {
                         Trang chủ
                     </Link>
                     <span className='mx-2 text-[20px]'>/</span>
-                    {/* {!brand && !layout && 
+                    {!brand && !layout && 
                         <span className='font-normal text-[16px] text-black'>{category?.name}</span>
                     }
+                    {/* 
                     {brand && <>
                         <Link href={`/danh-muc/${category?.slug}`} className='text-[16px] font-medium flex items-center text-dark-yellow'>  
                             {category?.name}
