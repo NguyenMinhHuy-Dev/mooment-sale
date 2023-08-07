@@ -104,7 +104,7 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
 
                                     {products.length === 0 ? (
                                         <div className='w-full h-[71%] text-center'>
-                                            <ProductionQuantityLimitsRoundedIcon className='w-full text-[120px] block text-center'/>
+                                            <ProductionQuantityLimitsRoundedIcon className='w-full !text-[120px] block text-center'/>
                                             <span className='font-medium text-[25px] block w-full text-center mt-5'>Giỏ hàng của bạn đang trống!</span>
                                         </div>
                                     ) : ( 
