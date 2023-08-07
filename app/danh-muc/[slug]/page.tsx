@@ -12,12 +12,13 @@ import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import SwitchAccessShortcutAddRoundedIcon from '@mui/icons-material/SwitchAccessShortcutAddRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
-import ProductsPagination from '@/components/ProductsPagination';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import ProductsPagination from '@/components/ProductsPagination'; 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 
 import Checkbox from '@mui/material/Checkbox';
+import ProductSkeleton from '@/components/ProductSkeleton';
  
 
 export default function Products({ params }: { params: { slug: string } }) {  
@@ -25,139 +26,140 @@ export default function Products({ params }: { params: { slug: string } }) {
     const slug = params.slug;
 
     const brand = searchParams?.get("hang"); 
- 
-    const [products, setProducts] = useState([]);
-    const [data, setData] = useState([]);
-    const [brands, setBrands] = useState([]);
-    const [category, setCategory] = useState<null | any>({});
+    const layout = searchParams?.get("layout"); 
 
-    const [isIncrease, setIsIncrease] = useState(false);
-    const [isDecrease, setIsDecrease] = useState(false);
-    const [isViewed, setIsViewed] = useState(false);
-    const [isRate, setIsRate] = useState(true);
-    const [isSold, setIsSold] = useState(false); 
-
-    const [isPriceChecked, setIsPriceChecked] = useState('all');
+    // 1: MOST RATED
+    // 2: INCREASE
+    // 3: DECREASE
+    // 4: BEST SELLER
+    const [sortType, setSortType] = useState(1);
+    
+    // 0            :   0 - 999.999.999
+    // 500000       :   0 - 500.000
+    // 1000000      :   500.000 - 1.000.000
+    // 2000000      :   1.000.000 - 2.000.000
+    // 4000000      :   2.000.000 - 4.000.000
+    // 999.999.999  :   4.000.000 - 999.999.999
+    const [filterPrice, setFilterPrice] = useState(0);
+    
+    const [search, setSearch] = useState('');
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(1);
- 
-    const [filterBrand, setFilterBrand] = useState<null | any>([]);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const getCategory = async (slug: string) => {
-        const res = await fetchCategory(slug); 
-        setCategory(res[0]);
-    }
-    const getBrands = async (tag: String) => {
-        const result = await fetchBrands(); 
-        setBrands(result);
-    }
-    const getProducts = async (slug: String) => {
-        const result = await fetchProducts();  
+    const [brands, setBrands] = useState([]); 
+    const [products, setProducts] = useState([]); 
+    const [data, setData] = useState([]);  
 
-        // await setProducts(result.filter((item: any) => item.category.slug === slug)); 
-        await setProducts(result);  
+    const prevPage = async () => {
+        await setCurrentPage(currentPage - 1);
+    }
 
-        await setPageSize(16 > result.length ? result.length : 16);
-        
-        const tempPageSize = 16 > result.length ? result.length : 16;
+    const nextPage = async () => {
+        await setCurrentPage(currentPage + 1);
+    }
 
-        const firstPageIndex = (currentPage - 1) * tempPageSize;
-        const lastPageIndex = firstPageIndex + tempPageSize;  
-        await setData(result.slice(firstPageIndex, lastPageIndex))
+    const getData = async (list: any) => {
+        const fromPage = (currentPage - 1) * pageSize;
+        const toPage = fromPage + pageSize; 
+        await setData(list.slice(fromPage, toPage))
     }
-   
-    const onClickIncrease = async () => {
-         setIsDecrease(false);
-         setIsIncrease(true);
-         setIsViewed(false);
-         setIsRate(false);
-         setIsSold(false);
-         refreshPage(); 
 
-        await products.sort((a: any, b: any) => a.salePrice - b.salePrice);
-    }
-    const onClickDecrease = async () => {
-        setIsDecrease(true);
-        setIsIncrease(false);
-        setIsViewed(false);
-        setIsRate(false);
-        setIsSold(false);
-        refreshPage();
-        
-        await products.sort((a: any, b: any) => b.salePrice - a.salePrice);
-    }
-    const onClickViewed = () => {
-        setIsDecrease(false);
-        setIsIncrease(false);
-        setIsViewed(true);
-        setIsRate(false);
-        setIsSold(false);
-    }
-    const onClickRate = () => {
-        setIsDecrease(false);
-        setIsIncrease(false);
-        setIsViewed(false);
-        setIsRate(true);
-        setIsSold(false); 
-    }
-    const onClickSold = async () => {
-        setIsDecrease(false);
-        setIsIncrease(false);
-        setIsViewed(false);
-        setIsRate(false);
-        setIsSold(true);
-        refreshPage(); 
-        
-        await products.sort((a: any, b: any) => b.sold - a.sold);
+    const applySort = async (type: any) => {  
+        var res = data;
+        // 1: MOST RATED    2: INCREASE     3: DECREASE     4: BEST SELLER
+        if (type === 1) {
+            res.sort((a: any, b: any) => b.rated - a.rated);
+        }
+        else if (type === 2) {
+            res.sort((a: any, b: any) => a.salePrice - b.salePrice);
+        }
+        else if (type === 3) {
+            res.sort((a: any, b: any) => b.salePrice - a.salePrice);
+        }
+        else if (type === 4) {
+            res.sort((a: any, b: any) => b.sold - a.sold);
+        }
+        await setData([...res]);  
+        setSortType(type);
+        setCurrentPage(1);  
+    }  
+
+    // 0            :   0 - 999.999.999
+    // 500000       :   0 - 500.000
+    // 1000000      :   500.000 - 1.000.000
+    // 2000000      :   1.000.000 - 2.000.000
+    // 4000000      :   2.000.000 - 4.000.000
+    // 999.999.999  :   4.000.000 - 999.999.999
+    const applyFilterPrice = async (from: any, to: any) => { 
+        const res = products.filter((item: any) => item.salePrice >= from && item.salePrice <= to);
+        if (sortType === 1) {
+            res.sort((a: any, b: any) => b.rated - a.rated);
+        }
+        else if (sortType === 2) {
+            res.sort((a: any, b: any) => a.salePrice - b.salePrice);
+        }
+        else if (sortType === 3) {
+            res.sort((a: any, b: any) => b.salePrice - a.salePrice);
+        }
+        else if (sortType === 4) {
+            res.sort((a: any, b: any) => b.sold - a.sold);
+        }
+        await setData(res);
     } 
-    const refreshPage = async () => { 
-        await setCurrentPage(1);
-    }
-    const onClickPrev = async () => {
-        if (currentPage <= 1)
-            return;
-        await setCurrentPage(currentPage - 1)
-    }
-    const onClickNext = async () => {
-        if (currentPage >= products.length / pageSize)
-            return;
-        await setCurrentPage(currentPage + 1)
-    }
-    const onClickGoToPage = async (page: number) => {
-        await setCurrentPage(page);
-    }
-    const getData = async (currentPage: number) => { 
-        const firstPageIndex = (currentPage - 1) * pageSize;
-        const lastPageIndex = firstPageIndex + pageSize;  
-        await setData(products.slice(firstPageIndex, lastPageIndex))
-    }
-    const onChangePrice = async (fromPrice: number, toPrice: number) => {
-        await setData(products.filter((product: any) => product.salePrice >= fromPrice && product.salePrice <= toPrice));
-    }
-    const onChangeCheckPrice = async (checkValue: string) => {
-        await setIsPriceChecked(checkValue);
-    }
+
+    const resetFilterPrice = async () => { 
+        var get: any = document.getElementsByName('radioPrices');
+        for (var i = 0 ; i < get.length ; i++) {
+            get[i].checked = false;
+        }
+        setFilterPrice(NaN);
+        await applyFilterPrice(0, 999999999); 
+    } 
+
+    const resetFilterBrand = async () => { 
+        var get: any = document.getElementsByName('checkBrands');
+        for (var i = 0 ; i < get.length ; i++) {
+            get[i].checked = false;
+        } 
+        await setData(products)
+        // await applyFilterPrice(0, 999999999); 
+    } 
 
     useEffect(() => {
-        getCategory(slug);
-        getProducts(slug);  
-        getBrands(slug);   
+        const fetchData = async () => {
+            try {
+                const res = await fetchProducts(); 
+                await setTotalPages(res.length / pageSize);
+                await setProducts(res); 
+                await setData(res);    
+                
+                const resBrands = await fetchBrands();
+                await setBrands(resBrands);
+            }
+            catch (err) {
+
+            }
+        }
+        fetchData();
     }, [slug]) 
 
     useEffect(() => {
-        const refreshData = async () => {
-            var get: any = document.getElementsByName('radioPrices'); 
-            for(var i= 1; i<get.length; i++){ 
-                get[i].checked= false;
+        const appySearch = async () => {
+            if (search !== '') {
+                await setData(products.filter((item: any) => 
+                    item.name.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1 ||
+                    item.salePrice.toString().toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1
+                ))
+                // await applySort(sortType)
             }
-            await setIsPriceChecked('all');
-            await getData(currentPage);
+            else {
+                setData(products);
+            }
         }
-        refreshData();
-        
-    }, [currentPage, isDecrease, isIncrease, isSold])
-
+        appySearch()
+    }, [search])
 
     return (
         <div className='mysection min-h-[100vh]'>
@@ -168,7 +170,7 @@ export default function Products({ params }: { params: { slug: string } }) {
                         Trang chủ
                     </Link>
                     <span className='mx-2 text-[20px]'>/</span>
-                    {!brand && 
+                    {/* {!brand && !layout && 
                         <span className='font-normal text-[16px] text-black'>{category?.name}</span>
                     }
                     {brand && <>
@@ -178,178 +180,310 @@ export default function Products({ params }: { params: { slug: string } }) {
                         <span className='mx-2 text-[20px]'>/</span>
                         <span className='font-normal text-[16px] text-black'>{brand}</span>
                     </>}
-                </div>
-
-                {/* {!brand &&  
-                    <div className='w-full flex items-center'>
-                        {brands && brands.map((item: any) => <BrandItem key={item._id} data={item} />)}
-                    </div>
-                } */}
+                    {layout && <>
+                        <Link href={`/danh-muc/${category?.slug}`} className='text-[16px] font-medium flex items-center text-dark-yellow'>  
+                            {category?.name}
+                        </Link>
+                        <span className='mx-2 text-[20px]'>/</span>
+                        <span className='font-normal text-[16px] text-black'>{layout}</span>
+                    </>} */}
+                </div> 
 
                 <div className='w-full mt-5 mb-[50px] flex justify-between'>
+                    {/* FILTER */}
                     <div className='w-[20%] p-3  bg-white shadow-header rounded-[10px]'> 
+                        {/* PRICES */}
                         <div className='w-full'>
-                            <h3 className='font-medium text-[16px] mb-1'>Giá tiền</h3>
+                            <div className='w-full flex items-center justify-between mb-1'>
+                                <h3 className='font-medium text-[16px]'>Giá tiền</h3>
+                                <RefreshRoundedIcon 
+                                    onClick={resetFilterPrice}
+                                    className='cursor-pointer bg-white shadow-md rounded hover:bg-light-gray hover:text-white'
+                                />
+                            </div>
                             <ul className='w-full'>
-                                <li className='my-1'> 
+                                {/* <li className='my-1'> 
                                     <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
-                                        <input  
-                                            onChange={(e) => {
-                                                onChangeCheckPrice('all');
-                                                onChangePrice(0, 999999999)
+                                        <input 
+                                            onClick={(e: any) => {
+                                                setFilterPrice(Number(e.target.value))
                                             }}  
-                                            type="radio" 
+                                            type="radio"  
                                             name='radioPrices' 
-                                            className=' mr-4' 
-                                            value={0}
-                                            checked={isPriceChecked === 'all' ? true : false}    
+                                            className=' mr-4'  
+                                            value={0} 
                                         />
                                         <span className='geekmark'></span>
                                         <p>Tất cả</p>
                                     </label>
-                                </li> 
+                                </li>  */}
+
                                 <li className='my-1'> 
                                     <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
                                         <input  
-                                        onChange={(e) => {
-                                            onChangeCheckPrice('500000');
-                                            onChangePrice(0, Number(e.target.value))
-                                        }} 
-                                        checked={isPriceChecked === '500000' ? true : false}  
-                                        type="radio" name='radioPrices' className=' mr-4' value={500000}/>
+                                            onClick={(e) => applyFilterPrice(0, 500000)}
+                                            type="radio" 
+                                            name='radioPrices' 
+                                            className=' mr-4' 
+                                            value={500000}
+                                        />
                                         <span className='geekmark'></span>
                                         <p>Dưới 500 nghìn</p>
                                     </label>
                                 </li> 
                                 <li className='my-1'> 
                                     <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
-                                        <input  
-                                        onChange={(e) => {
-                                            onChangeCheckPrice('1000000');
-                                            onChangePrice(500000, Number(e.target.value))
-                                        }} 
-                                        checked={isPriceChecked === '1000000' ? true : false}  
-                                        type="radio" name='radioPrices' className=' mr-4' value={1000000}/>
+                                        <input 
+                                            onClick={(e) => applyFilterPrice(500000, 1000000)}
+                                            type="radio" 
+                                            name='radioPrices' 
+                                            className=' mr-4' 
+                                            value={1000000}
+                                        />
                                         <span className='geekmark'></span>
                                         <p>Giá từ 500 nghìn đến 1 triệu</p>
                                     </label>
                                 </li> 
                                 <li className='my-1'> 
                                     <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
-                                        <input  
-                                        onChange={(e) => {
-                                            onChangeCheckPrice('2000000');
-                                            onChangePrice(1000000, Number(e.target.value))}} 
-                                            checked={isPriceChecked === '2000000' ? true : false}  
-                                        type="radio" name='radioPrices' className=' mr-4' value={2000000}/>
+                                        <input   
+                                            onClick={(e) => applyFilterPrice(1000000, 2000000)}
+                                            type="radio" 
+                                            name='radioPrices' 
+                                            className=' mr-4' 
+                                            value={2000000}
+                                        />
                                         <span className='geekmark'></span>
                                         <p>Giá từ 1 triệu đến 2 triệu</p>
                                     </label>
                                 </li> 
                                 <li className='my-1'> 
                                     <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
-                                        <input  
-                                        onChange={(e) => {
-                                            onChangeCheckPrice('4000000');
-                                            onChangePrice(2000000, Number(e.target.value))}}
-                                            checked={isPriceChecked === '4000000' ? true : false}  
-                                             type="radio" name='radioPrices' className=' mr-4' value={4000000}/>
+                                        <input   
+                                            onClick={(e) => applyFilterPrice(2000000, 4000000)}
+                                            type="radio"
+                                            name='radioPrices' 
+                                            className=' mr-4' 
+                                            value={4000000}
+                                        />
                                         <span className='geekmark'></span>
                                         <p>Giá từ 2 triệu đến 4 triệu</p>
                                     </label>
                                 </li> 
                                 <li className='my-1'> 
                                     <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
-                                        <input  onChange={(e) => {
-                                            setIsPriceChecked('999999999');
-                                            onChangePrice(Number(e.target.value), 999999999)}}
-                                            checked={isPriceChecked === '999999999' ? true : false}   type="radio" name='radioPrices' className=' mr-4' value={4000000}/>
+                                        <input 
+                                            onClick={(e) => applyFilterPrice(4000000, 999999999)}
+                                            type="radio" 
+                                            name='radioPrices' 
+                                            className=' mr-4' 
+                                            value={999999999}
+                                        />
                                         <span className='geekmark'></span>
                                         <p>Trên 4 triệu</p>
                                     </label>
                                 </li> 
                             </ul>
                         </div>
+
+                        {/* BRANDS */}
+                        {!brand && 
+                            <div className='w-full mt-3'>
+                                <div className='w-full flex items-center justify-between mb-1'>
+                                    <h3 className='font-medium text-[16px] mb-1'>Thương hiệu</h3>
+                                    <RefreshRoundedIcon 
+                                        onClick={resetFilterBrand}
+                                        className='cursor-pointer bg-white shadow-md rounded hover:bg-light-gray hover:text-white'
+                                    />
+                                </div>
+                                <ul className='w-full'>
+                                    {brands.map((item: any) => 
+                                        <li key={item._id} className='my-1'> 
+                                            <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                                <input type="checkbox" name='checkBrands'  className=' mr-4' value={item.slug}/>
+                                                <span className='geekmark'></span>
+                                                <p>{item.name}</p>
+                                            </label>
+                                        </li> 
+                                    )} 
+                                </ul>
+                            </div>
+                        }
+                        
+
+                        {/* LAYOUTS */}
+                        {!layout &&
                         <div className='w-full mt-3'>
-                            <h3 className='font-medium text-[16px] mb-1'>Thương hiệu</h3>
-                            <ul className='w-full'>
-                                <li className='my-1'> 
-                                    <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
-                                        <input type="checkbox" name='radioPrices' className=' mr-4' value={"all"}/>
-                                        <span className='geekmark'></span>
-                                        <p>Tất cả</p>
-                                    </label>
-                                </li>  
+                            <h3 className='font-medium text-[16px] mb-1'>Layout bàn phím</h3>
+                            <ul className='w-full'> 
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'fullsize'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Full-size</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'tkl'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Tenkeyless</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'75'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Layout 75%</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'65'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Layout 65%</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'60'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Layout 60%</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'40'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Layout 40%</p>
+                                        </label>
+                                    </li>  
+                            </ul>
+                        </div>
+                        }
+                        
+                        {/* CONNECT */}
+                        <div className='w-full mt-3'>
+                            <h3 className='font-medium text-[16px] mb-1'>Loại kết nối</h3>
+                            <ul className='w-full'>    
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'wireless'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Không dây - 2.4ghz</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'bt'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Bluetooth</p>
+                                        </label>
+                                    </li> 
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'wired'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Có dây</p>
+                                        </label>
+                                    </li>   
+                            </ul>
+                        </div>
+                        
+                        {/* LED */}
+                        <div className='w-full mt-3'>
+                            <h3 className='font-medium text-[16px] mb-1'>LED</h3>
+                            <ul className='w-full'>    
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'rgb'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Led RGB</p>
+                                        </label>
+                                    </li>  
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'single'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Led đơn</p>
+                                        </label>
+                                    </li> 
+                                    <li className='my-1'> 
+                                        <label className='mymain relative text-[13px] flex items-center cursor-pointer select-none'>
+                                            <input  type="checkbox" name='radioPrices'  className=' mr-4' value={'none'}/>
+                                            <span className='geekmark'></span>
+                                            <p>Không led</p>
+                                        </label>
+                                    </li>   
                             </ul>
                         </div>
                     </div>
 
                     <div className='w-[80%] ml-5 h-full '>
+                        {/* TOP SORT & PAGINATION */}
                         <div className='w-full p-3 flex items-center justify-between bg-white shadow-card rounded-[10px]'>
+                            {/* SORT */}
                             <div className='text-left flex items-center'>
                                 <h3 className='font-medium text-[14px] mr-3'>Sắp sếp theo:</h3>
-                                <div className='flex items-center'>
-
-                                    {/* <div onClick={onClickViewed} className={`px-2 py-1 mx-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${isViewed ? "bg-[#2424247a] text-black" : "bg-white text-black"} cursor-pointer`}>
-                                        <RemoveRedEyeRoundedIcon className='mr-1 !text-[20px]'/>
-                                        Xem nhiều
-                                    </div> */}
-
+                                <div className='flex items-center'> 
                                     
-                                    <div onClick={onClickRate} className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${isRate ? "bg-[#2424247a] text-black" : "bg-white text-black"} cursor-pointer`}>
+                                    <div
+                                        onClick={e => applySort(1)}
+                                        className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${sortType === 1 ? "bg-[#242424] text-white" : "bg-white text-black"} cursor-pointer`}
+                                    >
                                         <SwitchAccessShortcutAddRoundedIcon className='mr-1 !text-[20px]'/>
                                         Đánh giá cao
                                     </div> 
-                                    <div onClick={onClickIncrease} className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${isIncrease ? "bg-[#2424247a] text-black" : "bg-white text-black"} cursor-pointer`}>
+
+                                    <div 
+                                        onClick={e => applySort(2)}
+                                        className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${sortType === 2 ? "bg-[#242424] text-white" : "bg-white text-black"} cursor-pointer`}
+                                    >
                                         <TrendingUpRoundedIcon className='mr-1 !text-[20px]'/>
                                         Giá thấp - cao
                                     </div>
 
-                                    <div onClick={onClickDecrease} className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${isDecrease ? "bg-[#2424247a] text-black" : "bg-white text-black"} cursor-pointer`}>
+                                    <div 
+                                        onClick={e => applySort(3)}
+                                        className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${sortType === 3 ? "bg-[#242424] text-white" : "bg-white text-black"} cursor-pointer`}
+                                    >
                                         <TrendingDownRoundedIcon className='mr-1 !text-[20px]'/>
                                         Giá cao - thấp
                                     </div>
                                     
-                                    <div onClick={onClickSold} className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${isSold ? "bg-[#2424247a] text-black" : "bg-white text-black"} cursor-pointer`}>
+                                    <div
+                                        onClick={e => applySort(4)} 
+                                        className={`px-2 py-1 mr-2 text-[12px] flex items-center rounded-[10px] border-2 border-light-gray ${sortType === 4 ? "bg-[#242424] text-white" : "bg-white text-black"} cursor-pointer`}
+                                    >
                                         <WidgetsRoundedIcon className='mr-1 !text-[20px]'/>
                                         bán chạy
                                     </div>
                                 </div>
                             </div>
 
+                            {/* PAGINATION */}
                             <div className='flex items-center'> 
-                                <span onClick={onClickPrev} className={`px-1 py-1 mx-1 select-none rounded border-2 ${currentPage > 1 ? 'border-light-gray cursor-pointer' : 'border-[#d1d1d1] cursor-default'}`}><ArrowBackIosNewRoundedIcon className={`!text-[12px] ${currentPage > 1 ? 'text-light-gray' : 'text-[#d1d1d1]'}`} /></span>
-
-                                {Array.apply(null, Array(products.length / pageSize)).map(function (_, i) {return (
-                                    <span onClick={e => onClickGoToPage(i + 1)} className={`px-2 py-1 mx-1 text-[13px] rounded border-2 select-none cursor-pointer border-light-gray  ${currentPage === i + 1 ? 'bg-light-gray text-white' : 'bg-white text-black'}`}>{i + 1}</span>
-                                );})}
-
-                                <span onClick={onClickNext} className={`px-1 py-1 mx-2 select-none rounded border-2 ${currentPage < products.length / pageSize ? 'border-light-gray cursor-pointer' : 'border-[#d1d1d1] cursor-default'}`}><ArrowForwardIosRoundedIcon  className={`!text-[12px] ${currentPage < products.length / pageSize ? 'text-light-gray' : 'text-[#d1d1d1]'}`}/></span>
-                                
+                                <input onChange={(e) => {
+                                    setSearch(e.target.value)
+                                }} value={search} placeholder='Tìm kiếm sản phẩm' type='text' className='w-[200px] py-2 pl-3 text-[13px] bg-[#e8e9ec] rounded-lg outline-[#d1d1d1]' />
+                                <RefreshRoundedIcon 
+                                    onClick={(e) => {
+                                        setSearch('')
+                                    }}
+                                    className='cursor-pointer ml-1'
+                                />
                             </div>
                         </div>
 
-                        <div className='w-full min-h-[600px] grid grid-cols-4 mt-3 gap-3'>
-                            {data && data?.map((item: any) =>  
+                        {/* PRODUCTS RENDER */}
+                        <div className='relative w-full min-h-[600px] grid grid-cols-4 mt-3 gap-3'>
+                            {data?.map((item: any) =>  
                                 <ProductCard key={item._id} isFlashsale={false} data={item} />   
                             )}
                         </div>
 
-                        <div className='w-full p-3 flex items-center justify-between bg-white shadow-card rounded-[10px]'>
-                            <div className='text-left flex items-center'>
-                            </div>
-
-                            <div className='flex items-center'> 
-                                <span onClick={onClickPrev} className={`px-1 py-1 mx-2 select-none rounded border-2 ${currentPage > 1 ? 'border-light-gray cursor-pointer' : 'border-[#d1d1d1] cursor-default'}`}><ArrowBackIosNewRoundedIcon className={`!text-[12px] ${currentPage > 1 ? 'text-light-gray' : 'text-[#d1d1d1]'}`} /></span>
-
-                                {Array.apply(null, Array(products.length / pageSize)).map(function (_, i) {return (
-                                    <span onClick={e => onClickGoToPage(i + 1)} className={`px-2 py-1 text-[13px] mx-1 rounded border-2 select-none cursor-pointer border-light-gray  ${currentPage === i + 1 ? 'bg-light-gray text-white' : 'bg-white text-black'}`}>{i + 1}</span>
-                                );})}
-
-                                <span onClick={onClickNext} className={`px-1 py-1 mx-2 select-none rounded border-2 ${currentPage < products.length / pageSize ? 'border-light-gray cursor-pointer' : 'border-[#d1d1d1] cursor-default'}`}><ArrowForwardIosRoundedIcon  className={`!text-[12px] ${currentPage < products.length / pageSize ? 'text-light-gray' : 'text-[#d1d1d1]'}`}/></span>
-                                
-                            </div>
-                        </div>
+                        {/* BOTTOM PAGINATION */}
+                        
                     </div>
                 </div>
             </div>

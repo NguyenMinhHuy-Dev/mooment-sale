@@ -8,7 +8,25 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ImageFaded from './ImageFaded';
 import ProductSkeleton from './ProductSkeleton';
 
+import { useAppDispatch } from '@/redux/store'; 
+import { addItem } from '@/redux/features/cart-slice';
+
 export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolean, data: any }) { 
+    const dispatch = useAppDispatch(); 
+
+    const addToCart =()=>{
+        dispatch(
+            addItem({
+                _id: data._id,
+                name:data.name,
+                slug: data.slug,
+                salePrice: data.salePrice,
+                imageUrl: data.imageUrl,
+            })
+        );   
+    };
+
+
     if (!data) {
         return <ProductSkeleton />
     }
@@ -37,7 +55,7 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                     />
                 </Link> 
 
-                <div className='absolute z-[1] w-[130px] h-[30px] top-2 right-[-95px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-black/30 transition-all hover:right-0'>
+                <div  onClick={addToCart} className='absolute z-[1] w-[130px] h-[30px] top-2 right-[-95px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-black/30 transition-all hover:right-0'>
                     <ShoppingCartOutlinedIcon className='myicon mr-1 text-[20px] text-white '/>
                     <span className='text-[13px] text-white '>Thêm vào giỏ</span>
                 </div> 

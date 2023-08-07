@@ -393,6 +393,9 @@ input[type=checkbox] {
   border-radius: 5px;
   border: 2px solid #000;
 } 
+input[type=radio] ~ .geekmark {
+  border-radius: 20px;
+}
 .mymain:hover input ~ .geekmark {
   background-color: #6e6e6e;
 } 
