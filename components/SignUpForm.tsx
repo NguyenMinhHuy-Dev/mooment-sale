@@ -28,7 +28,7 @@ export default function SignUpForm({switchToSignIn}: SignUpFormProps) {
             setErrorConfirmPassword("Mật khẩu trong trùng khớp!");
             return;
         }
-        await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/signup", {
+        await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/signup", {
             cache: 'no-cache',
             method: "POST",
             body: JSON.stringify({ email, password, fullName }),

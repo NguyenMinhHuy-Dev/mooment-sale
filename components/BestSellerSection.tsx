@@ -44,7 +44,7 @@ export default function BestSellerSection() {
         {!loading ? ( 
           <Swiper  
               loop={true}  
-              spaceBetween={20}
+              spaceBetween={10}
               slidesPerView={5}
               pagination={{
                 clickable: true,

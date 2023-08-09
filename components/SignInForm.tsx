@@ -26,7 +26,7 @@ export default function SignInForm({switchToSignUp, closeModal}: SignInFormProps
         setErrorPassword('');
         setLoading(true);
         // try {
-            await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/signin", {
+            await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/signin", {
                 cache: 'no-cache',
                 method: "POST",
                 body: JSON.stringify({ email, password}),

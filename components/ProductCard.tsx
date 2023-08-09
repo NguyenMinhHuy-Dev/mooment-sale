@@ -1,6 +1,8 @@
+"use client"
+
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
@@ -8,11 +10,18 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ImageFaded from './ImageFaded';
 import ProductSkeleton from './ProductSkeleton';
 
-import { useAppDispatch } from '@/redux/store'; 
-import { addItem } from '@/redux/features/cart-slice';
+import { useAppDispatch, useAppSelector } from '@/redux/store'; 
+import { addItem } from '@/redux/features/cart-slice'; 
+import { addToFavourite } from '@/redux/features/auth-slice';
+import { Alert } from './AlertModal';
 
 export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolean, data: any }) { 
     const dispatch = useAppDispatch(); 
+
+    const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+    const user: any = useAppSelector((state) => state.authReducer.value.user);
+
+    const [isOpenAlert, setIsOpenAlert] = useState(false);
 
     const addToCart =()=>{
         dispatch(
@@ -26,7 +35,27 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
         );   
     };
 
-
+    const addFavourite = async () => {
+        if (!isAuth) {
+            setIsOpenAlert(true);
+            return;
+        }
+        // dispatch(addToFavourite({_id: data._id}))
+        await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/" + user._id + "/favourite", {
+            cache: 'no-cache',
+            method: "POST",
+            body: JSON.stringify({ id: data._id }),
+            headers: { 'Content-type': 'application/json' }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        }) 
+    } 
+    
     if (!data) {
         return <ProductSkeleton />
     }
@@ -60,7 +89,7 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                     <span className='text-[13px] text-white '>Thêm vào giỏ</span>
                 </div> 
 
-                <div className='absolute z-[1] w-[110px] h-[30px] top-12 right-[-75px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-light-red/30 transition-all hover:right-0'> 
+                <div onClick={addFavourite} className='absolute z-[1] w-[110px] h-[30px] top-12 right-[-75px] badge flex items-center justify-start cursor-pointer p-2 rounded-s mb-1 backdrop-blur-sm bg-light-red/30 transition-all hover:right-0'> 
                     {/* <FavoriteRoundedIcon className='myicon mr-1 text-[20px] text-white '/> */}
                     <FavoriteBorderRoundedIcon className='myicon love mr-1 !text-[20px] text-black '/>
                     <span className='text-[13px] love text-black '>Yêu thích</span>
@@ -106,6 +135,8 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                     </div>
                 </div>
             )}
+
+            <Alert isOpen={isOpenAlert} closeModal={() => setIsOpenAlert(false)} />
         </div>
     )
 }

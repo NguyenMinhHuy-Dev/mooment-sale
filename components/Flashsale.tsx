@@ -99,7 +99,7 @@ export default function Flashsale({ date }: { date: string }) {
                 {!loading ? (
 
                     <Swiper   
-                        spaceBetween={20}
+                        spaceBetween={10}
                         slidesPerView={5}
                         navigation={true}
                         pagination={{
@@ -121,7 +121,7 @@ export default function Flashsale({ date }: { date: string }) {
                         <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
                     </Swiper>
                 ) : (
-                    <div className='w-full grid grid-cols-5 gap-5'>
+                    <div className='w-full grid grid-cols-5 gap-[10px]'>
                         <ProductSkeleton />
                         <ProductSkeleton />
                         <ProductSkeleton />

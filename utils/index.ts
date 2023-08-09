@@ -50,3 +50,11 @@ export async function fetchProducts() {
     //     // throw new Error("Failed to fetch data");
     // }); 
 }
+
+export async function addToFavourite(id: any) {
+  
+}
+export async function  getProduct(slug: String) {
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/products/" + slug);
+  return response.json();
+} 

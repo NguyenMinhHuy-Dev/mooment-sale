@@ -26,9 +26,24 @@ export const auth = createSlice({
                     isModerator: false,
                 }
             }
+        },
+
+        addToFavourite: (state, action) => {
+            const newItem = action.payload;
+            // state.value.user.favourite.map((item) => {
+            //     console.log(item)
+            // })
+            // if (!existingItem) {
+            //     state.value.user.favourite.push({_id: action.payload})
+            //     console.log(newItem);
+            // }
+            // else {
+                
+                console.log(state.value.user);
+            // }
         }
     }
 });
 
-export const { signIn, logOut } = auth.actions;
+export const { signIn, logOut, addToFavourite } = auth.actions;
 export default auth.reducer;
