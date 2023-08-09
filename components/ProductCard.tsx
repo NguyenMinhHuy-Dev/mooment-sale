@@ -31,11 +31,12 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                 slug: data.slug,
                 salePrice: data.salePrice,
                 imageUrl: data.imageUrl,
+                amount: 1
             })
         );   
     };
 
-    const addFavourite = async () => {
+    const addFavourite: any = async () => {
         if (!isAuth) {
             setIsOpenAlert(true);
             return;

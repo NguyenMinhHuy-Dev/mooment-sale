@@ -47,6 +47,7 @@ export default function ProductDetail({slug}: {slug : string}) {
           </>
         }
       </div>
+      
       {product !== null && 
         <ProductInfo product={product}/>
       }

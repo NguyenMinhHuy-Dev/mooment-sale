@@ -49,6 +49,7 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
                 slug: data.slug,
                 salePrice: data.salePrice,
                 imageUrl: data.imageUrl,
+                amount: 1
             })
         );   
     };
