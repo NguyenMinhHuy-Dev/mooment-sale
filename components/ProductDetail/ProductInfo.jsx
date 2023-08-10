@@ -29,6 +29,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { addItem } from '@/redux/features/cart-slice'; 
 import { addToFavourite } from '@/redux/features/auth-slice';
 import { SignFormModal } from '../SignFormModal';
+import VoucherCard from '../VoucherCard';
 
 export default function ProductInfo({ product }) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null); 
@@ -94,7 +95,7 @@ export default function ProductInfo({ product }) {
     };
  
     return (
-        <div className='mygrid pt-[5px] h-[500px] flex justify-between'>
+        <div className='mygrid pt-[5px] min-h-[500px] flex justify-between'>
             {Object.keys(product).length !== 0 && 
                 <> 
                     <div className='w-[33%] h-full'>
@@ -244,45 +245,86 @@ export default function ProductInfo({ product }) {
                             </div>
                         </div>
 
-                        <div className='w-full pt-[30px] h-[70%]'>
-                            <div className='relative w-full h-full'>
-                                <span className='absolute h-[25px] py-4 px-5 flex items-center justify-center rounded-full bg-white text-[14px] font-medium text-[#838383] shadow-card top-[-20px] left-[50%] -translate-x-[50%]'>Thông số kỹ thuật</span>
-                                <div className=' w-full h-full py-2 px-3 rounded-[10px] bg-[#e8e9ec] overflow-y-auto'> 
-                                    <table className='mytable w-full h-full'>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Layout</th>
-                                            <td>F13 WK/WKL</td>
-                                        </tr>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Chất liệu</th>
-                                            <td>Nhôm</td>
-                                        </tr> 
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Kết nối</th>
-                                            <td>Type C</td>
-                                        </tr>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Mounting</th>
-                                            <td>HPCB Gasket-sandwich</td>
-                                        </tr>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Plate</th>
-                                            <td>PC</td>
-                                        </tr>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Mạch PCB</th>
-                                            <td>Hotswap 5 pin, 1.6mm</td>
-                                        </tr>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Foam</th>
-                                            <td>Plate / Switch / Case</td>
-                                        </tr>
-                                        <tr className='w-full flex items-center justify-between text-[14px]'>
-                                            <th>Firmware</th>
-                                            <td>QMK & VIA support</td>
-                                        </tr>
-                                    </table>
-                                </div>
+                        <div className='w-full p-3 max-h-[70%] bg-light-gray mt-2 rounded-[10px]'>
+                            <div className='w-full flex items-center justify-between'>
+                                <h3 className='font-black text-[15px[ text-white'>Voucher của bạn</h3>
+                                <Link href="/tai-khoan/voucher" className='text-white text-[13px] underline hover:text-light-yellow'>Xem tất cả</Link>
+                            </div>
+                            <div className='w-full mt-2'>
+                                <ul className='w-full'>
+                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
+                                        <div className='h-full flex items-center'> 
+                                            <Image 
+                                                src="/logo-1.png"
+                                                alt="logo"
+                                                width={70}   
+                                                height={70}
+                                                className='object-contain' 
+                                            />
+                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
+                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
+                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
+                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                            </div>
+                                        </div>
+                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span> */}
+                                        <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span>
+                                    </li>
+                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
+                                        <div className='h-full flex items-center'> 
+                                            <Image 
+                                                src="/logo-1.png"
+                                                alt="logo"
+                                                width={70}   
+                                                height={70}
+                                                className='object-contain' 
+                                            />
+                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
+                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
+                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
+                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                            </div>
+                                        </div>
+                                        <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span>
+                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span> */}
+                                    </li>
+                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
+                                        <div className='h-full flex items-center'> 
+                                            <Image 
+                                                src="/logo-1.png"
+                                                alt="logo"
+                                                width={70}   
+                                                height={70}
+                                                className='object-contain' 
+                                            />
+                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
+                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
+                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
+                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                            </div>
+                                        </div>
+                                        <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span>
+                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span> */}
+                                    </li>
+                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
+                                        <div className='h-full flex items-center'> 
+                                            <Image 
+                                                src="/logo-1.png"
+                                                alt="logo"
+                                                width={70}   
+                                                height={70}
+                                                className='object-contain' 
+                                            />
+                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
+                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
+                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
+                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                            </div>
+                                        </div>
+                                        <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span>
+                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span> */}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

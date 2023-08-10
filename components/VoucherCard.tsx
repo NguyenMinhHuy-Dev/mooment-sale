@@ -6,7 +6,7 @@ import StyleIcon from '@mui/icons-material/Style';
 export default function VoucherCard() {
     const [isSaved, setIsSaved] = useState(false);
   return (
-    <div className='mycard relative w-[24%] mx-4 bg-white p-[10px]'>
+    <div className='mycard relative w-[100%] mx-4 bg-white p-[10px]'>
         <div className='relative w-full h-[50%] flex items-center justify-center'> 
             <Image 
                 src="/logo-1.png"

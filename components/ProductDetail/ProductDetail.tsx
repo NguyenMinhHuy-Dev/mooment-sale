@@ -4,9 +4,11 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import ProductDescription from './ProductDescription';
+import ProductComments from './ProductComments';
 
 export default function ProductDetail({slug}: {slug : string}) {
-    const [product, setProduct] = useState<null | any>({});
+  const [product, setProduct] = useState<null | any>({});
 
   useEffect(() => {
     const getProduct = async () => {
@@ -26,7 +28,7 @@ export default function ProductDetail({slug}: {slug : string}) {
     getProduct();
   }, [slug])
   return (
-    <div className='mysection min-h-[100vh]'>
+    <div className='mysection min-h-[100vh] mb-[30px]'>
       <div className='mygrid w-full flex items-center py-4'>
         <Link href="/" className='text-[16px] font-medium flex items-center text-dark-yellow'> 
             <HomeRoundedIcon className='mr-1'/>
@@ -49,7 +51,11 @@ export default function ProductDetail({slug}: {slug : string}) {
       </div>
       
       {product !== null && 
-        <ProductInfo product={product}/>
+        <> 
+          <ProductInfo product={product}/>
+          <ProductDescription product={product}/>
+          <ProductComments product={product}/>
+        </>
       }
     </div>
   )
