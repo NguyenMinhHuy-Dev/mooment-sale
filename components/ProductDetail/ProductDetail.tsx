@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import ProductDescription from './ProductDescription';
 import ProductComments from './ProductComments';
+import ProductsRelate from './ProductsRelate';
 
 export default function ProductDetail({slug}: {slug : string}) {
   const [product, setProduct] = useState<null | any>({});
@@ -54,7 +55,8 @@ export default function ProductDetail({slug}: {slug : string}) {
         <> 
           <ProductInfo product={product}/>
           <ProductDescription product={product}/>
-          <ProductComments product={product}/>
+          {/* <ProductComments product={product}/> */}
+          <ProductsRelate product={product}/>
         </>
       }
     </div>

@@ -20,6 +20,8 @@ export default function ProductDescription({ product }: any) {
                             <span className='absolute h-[25px] py-4 px-5 flex items-center justify-center rounded-full bg-white text-[14px] font-medium text-[#838383] shadow-card top-[-20px] left-[50%] -translate-x-[50%]'>Thông số kỹ thuật</span>
                             <div className=' w-full h-full py-2 px-3 rounded-[10px] bg-[#fff] shadow-md '> 
                                 <table className='mytable w-full h-full'>
+                                    <tbody>
+                                        
                                     <tr className='w-full flex items-center justify-between text-[14px]'>
                                         <th>Layout</th>
                                         <td>F13 WK/WKL</td>
@@ -52,6 +54,7 @@ export default function ProductDescription({ product }: any) {
                                         <th>Firmware</th>
                                         <td>QMK & VIA support</td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

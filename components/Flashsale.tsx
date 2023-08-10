@@ -103,7 +103,7 @@ export default function Flashsale({ date }: { date: string }) {
                         slidesPerView={5}
                         navigation={true}
                         pagination={{
-                        clickable: true,
+                            clickable: true,
                         }}
                         modules={[ Navigation, Pagination]} 
                         className="mySwiper h-full"
