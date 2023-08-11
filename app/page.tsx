@@ -1,19 +1,19 @@
 // import { useAppSelector } from "./redux/store";
 'use client'
 
-import Flashsale from "@/components/Flashsale";
-import ProductCard from "@/components/ProductCard";
-import ServicesSection from "@/components/ServicesSection";
-import Slides from "@/components/Slides";
-import TopCategoriesSection from "@/components/TopCategoriesSection";
-import BestSellerSection from "@/components/BestSellerSection";
+import Flashsale from "@/components/Sections/Flashsale";
+import ProductCard from "@/components/Product/ProductCard";
+import ServicesSection from "@/components/Sections/ServicesSection";
+import Slides from "@/components/Sections/Slides";
+import TopCategoriesSection from "@/components/Sections/TopCategoriesSection";
+import BestSellerSection from "@/components/Sections/BestSellerSection";
 import { useAppSelector } from "@/redux/store"; 
 import { useEffect } from "react";
-import TopProductsSection from "@/components/TopProductsSection";
-import PreOrderSection from "@/components/PreOrderSection";
-import VouchersSection from "@/components/VouchersSection";
-import SubscribeFormSection from "@/components/SubscribeFormSection";
-import NewsSection from "@/components/NewsSection"; 
+import TopProductsSection from "@/components/Sections/TopProductsSection";
+import PreOrderSection from "@/components/Sections/PreOrderSection"; 
+import VouchersSection from "@/components/Sections/VouchersSection";
+import SubscribeFormSection from "@/components/Sections/SubscribeFormSection";
+import NewsSection from "@/components/Sections/NewsSection"; 
 
 
 export default function Home() {

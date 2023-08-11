@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import SignInForm from './SignInForm';
-import SignUpForm from './SignUpForm';
+import SignInForm from '../Auth/SignInForm';
+import SignUpForm from '../Auth/SignUpForm';
 
 interface SignFormProps {
     isOpen: boolean,

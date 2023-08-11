@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductCard from './ProductCard'
+import ProductCard from '../Product/ProductCard'
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay, Pagination } from 'swiper/modules';
 import WhatshotRoundedIcon from '@mui/icons-material/WhatshotRounded';
 import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
-import ProductSkeleton from './ProductSkeleton';
+import ProductSkeleton from '../Skeleton/ProductSkeleton';
  
 export default function BestSellerSection() {
   const [products, setProducts] = useState([]);

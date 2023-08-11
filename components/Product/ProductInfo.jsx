@@ -23,17 +23,22 @@ import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRound
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import Link from 'next/link';
 
-import { Alert } from '../AlertModal';
+import { Alert } from '../Modal/AlertModal';
 
 import { useAppDispatch, useAppSelector } from '@/redux/store'; 
 import { addItem } from '@/redux/features/cart-slice'; 
 import { addToFavourite } from '@/redux/features/auth-slice';
-import { SignFormModal } from '../SignFormModal';
-import VoucherCard from '../VoucherCard';
+import { SignFormModal } from '../Modal/SignFormModal';
+import VoucherCard from '../Voucher/VoucherCard';
+
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 
 export default function ProductInfo({ product }) {
+    const router = useRouter()
+
     const [thumbsSwiper, setThumbsSwiper] = useState(null); 
-    const [amount, setAmount] = useState(0); 
+    const [amount, setAmount] = useState(1); 
 
     const dispatch = useAppDispatch(); 
 
@@ -91,8 +96,26 @@ export default function ProductInfo({ product }) {
                 amount: amount,
             })
         );   
-        setAmount(0);
+        setAmount(1);
     };
+
+    const buyNow = () => {
+        if (amount <= 0) {
+            return;
+        }
+        dispatch(
+            addItem({
+                _id: product._id,
+                name:product.name,
+                slug: product.slug,
+                salePrice: product.salePrice,
+                imageUrl: product.imageUrl,
+                amount: amount,
+            })
+        );   
+        setAmount(1);
+        router.push('/thanh-toan');
+    }
  
     return (
         <div className='mygrid pt-[5px] min-h-[500px] flex justify-between'>
@@ -198,7 +221,7 @@ export default function ProductInfo({ product }) {
                                     <RemoveRoundedIcon />
                                 </button>
                                 {/* <span className='w-[40%] text-[15px] h-full flex justify-center items-center'>{amount}</span> */}
-                                <input type="number" min={0} max={product.quantity} placeholder='0' className='[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-[40%] text-[15px] outline-none text-center' value={amount} onChange={(e) => setAmount(e.target.value <= product.quantity ? e.target.value : product.quantity)} />
+                                <input type="number" min={1} max={product.quantity} placeholder='0' className='[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-[40%] text-[15px] outline-none text-center' value={amount} onChange={(e) => setAmount(e.target.value <= product.quantity ? e.target.value : product.quantity)} />
                                 <button 
                                     onClick={(e) => amount < product.quantity && setAmount(amount + 1)}
                                     className='flex justify-center items-center w-[30%] h-full '
@@ -217,7 +240,7 @@ export default function ProductInfo({ product }) {
                                 <AddShoppingCartRoundedIcon className='mr-1'/>
                                 Thêm vào giỏ hàng
                             </button>
-                            <button className='mygradientbackground2 text-white font-bold uppercase text-[15px] w-[49%] h-full rounded-[10px]'>
+                            <button onClick={buyNow} className='mygradientbackground2 text-white font-bold uppercase text-[15px] w-[49%] h-full rounded-[10px]'>
                                 <ShoppingCartCheckoutRoundedIcon className='mr-1'/>
                                 Mua ngay
                             </button>

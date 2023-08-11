@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Navbar.tsx", "redux/features/cart-slice.js", "redux/features/auth-slice.js", "components/ProductDetail/ProductInfo.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Header/Navbar.tsx", "redux/features/cart-slice.js", "redux/features/auth-slice.js", "components/Product/ProductInfo.jsx"],
   "exclude": ["node_modules"]
 }

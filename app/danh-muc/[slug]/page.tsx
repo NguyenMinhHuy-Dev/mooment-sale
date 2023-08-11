@@ -1,24 +1,24 @@
 'use client'
 
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/components/Product/ProductCard';
 import { fetchBrands, fetchCategories, fetchCategory, fetchProducts } from '@/utils';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import React, { useState, useEffect } from 'react'
-import BrandItem from '@/components/BrandItem';
+import BrandItem from '@/components/Brand/BrandItem';
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import SwitchAccessShortcutAddRoundedIcon from '@mui/icons-material/SwitchAccessShortcutAddRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
-import ProductsPagination from '@/components/ProductsPagination'; 
+import ProductsPagination from '@/components/Product/ProductsPagination'; 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 
 import Checkbox from '@mui/material/Checkbox';
-import ProductSkeleton from '@/components/ProductSkeleton';
+import ProductSkeleton from '@/components/Skeleton/ProductSkeleton';
  
 
 export default function Products({ params }: { params: { slug: string } }) {  

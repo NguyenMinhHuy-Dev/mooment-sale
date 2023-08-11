@@ -14,6 +14,7 @@
     "@headlessui/react": "^1.7.15",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
+    "@paypal/react-paypal-js": "^8.1.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.4.5",
     "@types/react": "18.2.16",

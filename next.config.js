@@ -7,6 +7,14 @@ const nextConfig = {
             hostname: 'res.cloudinary.com'
           },
           {
+            protocol: 'https',
+            hostname: 'www.nopcommerce.com'
+          },
+          {
+            protocol: 'https',
+            hostname: 'cdn.printgo.vn'
+          },
+          {
             protocol: 'http',
             hostname: 'res.cloudinary.com'
           },

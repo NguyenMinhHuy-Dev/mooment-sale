@@ -1,5 +1,5 @@
 import React from 'react'
-import VoucherCard from './VoucherCard';
+import VoucherCard from '../Voucher/VoucherCard';
 
 export default function VouchersSection() {
   return (

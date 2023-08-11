@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
-import { CustomButton } from './CustomButton';
+import { CustomButton } from '../Custom/CustomButton';
 import CategoryHeader from './CategoryHeader';
-import CartMini from './CartMini';
+import CartMini from '../Cart/CartMini';
 import Account from './Account';
 import { useSearchParams } from 'next/navigation'
 

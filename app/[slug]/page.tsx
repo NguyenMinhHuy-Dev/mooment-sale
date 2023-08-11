@@ -1,4 +1,4 @@
-import ProductDetail from '@/components/ProductDetail/ProductDetail';
+import ProductDetail from '@/components/Product/ProductDetail';
 import { getProduct } from '@/utils';
 import { Metadata } from 'next'; 
 

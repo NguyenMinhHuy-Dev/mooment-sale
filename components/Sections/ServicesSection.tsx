@@ -3,7 +3,7 @@ import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded';
 import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded';
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded';
 import VerifiedUserRoundedIcon from '@mui/icons-material/VerifiedUserRounded';
-import ServiceItemSkeleton from './ServiceItemSkeleton';
+import ServiceItemSkeleton from '../Skeleton/ServiceItemSkeleton';
 
 export default function ServicesSection() {
     const [loading, setLoading] = useState(false);

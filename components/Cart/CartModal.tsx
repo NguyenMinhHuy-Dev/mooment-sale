@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { useAppDispatch } from '@/redux/store'; 
 import { addItem, deleteItems, removeItems } from '@/redux/features/cart-slice';
 import { useAppSelector } from '@/redux/store';
+import { useRouter } from 'next/navigation';
 
 interface CartProps {
     isOpen: boolean,
@@ -25,6 +26,8 @@ let VND = new Intl.NumberFormat('vn-VI', {
 
 export const Cart = ({ isOpen, closeModal }: CartProps) => {  
     
+    const router = useRouter();
+
     const dispatch = useAppDispatch(); 
     const products = useAppSelector((state) => state.cartReducer.cartItems);
     const totalPriceCart = useAppSelector((state) => state.cartReducer.totalAmount);
@@ -99,14 +102,14 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
                             >
                                 <Dialog.Panel className="relative overflow-y-auto right-0 top-0 p-4 shadow-menu w-full max-w-[500px] h-[100vh] bg-white">
                                     <div className='w-full h-[10%] flex justify-between items-center'>
-                                        <span className='font-bold text-2xl cursor-default'>My cart</span>
-                                        <button type="button" onClick={closeModal} className="top-4 right-4 p-2 border-2 border-black rounded hover:bg-black hover:text-white transition"><CloseRoundedIcon /></button>
+                                        <span className='font-bold text-[24px] cursor-default'>My cart</span>
+                                        <button type="button" onClick={closeModal} className="top-4 right-4 p-1 border-2 border-black rounded hover:bg-black hover:text-white transition"><CloseRoundedIcon /></button>
                                     </div>
 
                                     {products.length === 0 ? (
                                         <div className='w-full h-[71%] text-center'>
                                             <ProductionQuantityLimitsRoundedIcon className='w-full !text-[120px] block text-center'/>
-                                            <span className='font-medium text-[25px] block w-full text-center mt-5'>Giỏ hàng của bạn đang trống!</span>
+                                            <span className='font-medium text-[23px] block w-full text-center mt-5'>Giỏ hàng của bạn đang trống!</span>
                                         </div>
                                     ) : ( 
                                         <>
@@ -131,15 +134,15 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
 
                                                             <div className='w-[50%] h-[60px] text-justify'>
                                                                 <div className='text-left overflow-hidden w-full h-[40px] '>
-                                                                    <span className='font-medium text-[18px] leading-5 line-clamp-2 overflow-hidden whitespace-pre-wrap'> 
+                                                                    <span className='font-medium text-[16px] leading-5 line-clamp-2 overflow-hidden whitespace-pre-wrap'> 
                                                                         {product.name}
                                                                     </span>
                                                                 </div>
-                                                                <span className='w-full h-[20px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice)}</span>
+                                                                <span className='w-full h-[20px] text-[14px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice)}</span>
                                                             </div>
 
                                                             <div className='w-[30%] h-[60px]'>
-                                                                <span className='inline-block w-full h-[20px] pr-2 text-end font-semibold'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.totalPrice)}</span>
+                                                                <span className='inline-block w-full h-[20px] text-[16px] pr-2 text-end font-semibold'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.totalPrice)}</span>
                                                                 <div className='flex justify-between items-center w-full h-[40px] rounded-full overflow-hidden border border-[#5f5f5f]'>
                                                                     <button onClick={(e) => {
                                                                         if (product.quantity === 1) {
@@ -149,7 +152,7 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
                                                                             removeFromCart(product)
                                                                         }
                                                                     }} className='flex justify-center items-center w-[30%] h-full '><RemoveRoundedIcon /></button>
-                                                                    <span className='w-[40$] h-full flex justify-center items-center'>{product.quantity}</span>
+                                                                    <span className='w-[40%] h-full flex justify-center text-[16px] items-center'>{product.quantity}</span>
                                                                     <button onClick={(e) => addToCart(product)} className='flex justify-center items-center w-[30%] h-full '><AddRoundedIcon /></button>
                                                                 </div>
                                                             </div>
@@ -163,15 +166,15 @@ export const Cart = ({ isOpen, closeModal }: CartProps) => {
                                             <div className='w-full h-[1%] text-center bg-white'></div>
 
                                             <div className='w-full h-[18%] text-center'>
-                                                <div className='w-full p-1 flex justify-between items-center border-b border-[#d1d1d1]'>
-                                                    <span className='font-normal text-[#5f5f5f]'>Phí vận chuyển</span>
-                                                    <span className='font-bold text-lg'>Cần thanh toán để biết</span>
+                                                <div className='w-full p-1 text-[16px] flex justify-between items-center border-b border-[#d1d1d1]'>
+                                                    <span className='font-normal text-[15px] text-[#5f5f5f]'>Phí vận chuyển</span>
+                                                    <span className='font-bold text-[15px]'>Cần thanh toán để biết</span>
                                                 </div>
                                                 <div className='w-full p-1 my-3 flex justify-between items-center border-b border-[#d1d1d1]'>
-                                                    <span className='font-normal text-[#5f5f5f]'>Tổng tiền</span>
-                                                    <span className='font-bold text-lg'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPriceCart)}</span>
+                                                    <span className='font-normal text-[15px] text-[#5f5f5f]'>Tổng tiền</span>
+                                                    <span className='font-bold text-[15px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPriceCart)}</span>
                                                 </div> 
-                                                <button className='w-full py-[10px] outline-none rounded-full bg-dark-yellow text-[#000000ca] font-bold text-lg hover:bg-light-yellow hover:text-[#000]'>Thanh toán</button>
+                                                <button onClick={(e) => router.push('/thanh-toan')} className='w-full py-[10px] outline-none rounded-full bg-dark-yellow text-[#000000ca] font-bold text-lg hover:bg-light-yellow hover:text-[#000]'>Thanh toán</button>
                                             </div>
                                         </>
                                     )}

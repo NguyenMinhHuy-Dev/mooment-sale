@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import ImageFaded from './ImageFaded'
+import ImageFaded from '../Loading/ImageFaded'
 
 export default function NewsCard() {
   return ( 

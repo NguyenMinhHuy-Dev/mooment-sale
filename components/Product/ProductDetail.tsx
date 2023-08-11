@@ -1,5 +1,5 @@
 'use client'
-import ProductInfo from '@/components/ProductDetail/ProductInfo';
+import ProductInfo from '@/components/Product/ProductInfo';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { Metadata } from 'next';
 import Link from 'next/link';

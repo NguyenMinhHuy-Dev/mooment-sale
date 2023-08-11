@@ -2,8 +2,8 @@ import Link from 'next/link'
 import React from 'react';
 
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded'; 
-import ImageFaded from './ImageFaded';
-import NewsCard from './NewsCard';
+import ImageFaded from '../Loading/ImageFaded';
+import NewsCard from '../News/NewsCard';
 
 export default function NewsSection() {
   return (

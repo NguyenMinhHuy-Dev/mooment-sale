@@ -8,8 +8,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import ProductCard from './ProductCard';
-import ProductSkeleton from './ProductSkeleton';
+import ProductCard from '../Product/ProductCard';
+import ProductSkeleton from '../Skeleton/ProductSkeleton';
 
 export default function TopProductsSection({ category, direction }: { category: String, direction: Boolean }) {
     const [products, setProducts] = useState([]);

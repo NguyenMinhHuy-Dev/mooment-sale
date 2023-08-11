@@ -5,13 +5,13 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import ProductCard from '../ProductCard';
+import ProductCard from './ProductCard';
 
 export default function ProductsRelate({ product }: any) {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    await fetch(process.env.NEXT_PUBLIC_API_URL + "/products" + product.slug + "/relate", {
+    await fetch(process.env.NEXT_PUBLIC_API_URL + "/products/" + product.slug + "/relate", {
       cache: 'no-cache',
       method: "GET", 
       headers: { 'Content-type': 'application/json' }

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { SignFormModal } from './SignFormModal';
+import { SignFormModal } from '../Modal/SignFormModal';
 import WavingHandOutlinedIcon from '@mui/icons-material/WavingHandOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';

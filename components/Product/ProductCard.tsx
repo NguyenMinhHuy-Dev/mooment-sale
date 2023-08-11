@@ -7,13 +7,13 @@ import React, { useState, useEffect } from 'react'
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import ImageFaded from './ImageFaded';
-import ProductSkeleton from './ProductSkeleton';
+import ImageFaded from '../Loading/ImageFaded';
+import ProductSkeleton from '../Skeleton/ProductSkeleton';
 
 import { useAppDispatch, useAppSelector } from '@/redux/store'; 
 import { addItem } from '@/redux/features/cart-slice'; 
 import { addToFavourite } from '@/redux/features/auth-slice';
-import { Alert } from './AlertModal';
+import { Alert } from '../Modal/AlertModal';
 
 export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolean, data: any }) { 
     const dispatch = useAppDispatch(); 

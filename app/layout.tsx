@@ -1,4 +1,4 @@
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Header/Navbar'
 import './globals.css'
 import TawkTo from '@/components/TawkTo'; 
 import { Providers } from '@/redux/provider';
@@ -36,12 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="relative bg-white">
-        <Providers>
-            <Navbar />
-            {children}
-            <Footer />
-            <TawkTo />
-        </Providers>
+          <Providers>
+              <Navbar />
+              {children}
+              <Footer />
+              <TawkTo />
+          </Providers> 
       </body>
     </html>
   )

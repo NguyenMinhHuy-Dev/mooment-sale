@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PunchClockRoundedIcon from '@mui/icons-material/PunchClockRounded';
-import ProductCard from './ProductCard'; 
+import ProductCard from '../Product/ProductCard'; 
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from 'swiper/modules';
-import ProductSkeleton from './ProductSkeleton';
+import ProductSkeleton from '../Skeleton/ProductSkeleton';
 
 export default function Flashsale({ date }: { date: string }) {
     const [days, setDays] = useState(0);
