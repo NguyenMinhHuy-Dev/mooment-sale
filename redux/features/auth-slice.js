@@ -18,7 +18,7 @@ export const auth = createSlice({
             return initialState;
         },
 
-        signIn: (state, action) => {
+        signIn: (state, action) => { 
             return {
                 value: {
                     isAuth: true,

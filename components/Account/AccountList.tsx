@@ -16,6 +16,8 @@ import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import Link from 'next/link';
 import UserInfo from '../User/UserInfo';
 import { SignFormModal } from '../Modal/SignFormModal';
+import UserAddress from '../User/UserAddress';
+import UserOrder from '../User/UserOrder';
 
 export default function AccountList() { 
     const params = useSearchParams();
@@ -73,10 +75,10 @@ export default function AccountList() {
 
     return (
         <div className='mygrid flex justify-between'>
-            <div className='w-[25%] h-[600px] p-5 rounded-[10px] bg-light-gray shadow-menu'>
+            <div className='w-[21%] h-[600px] p-5 rounded-[10px] bg-light-gray shadow-menu'>
                 <div className='w-full text-center'>
                     <AccountCircleRoundedIcon className='!text-[100px] text-[#504e4e]'/>
-                    <span className='block w-full mt-2 text-center text-white font-semibold'>
+                    <span className='block w-full mt-2 text-center text-white text-[15px] font-semibold'>
                         <WavingHandOutlinedIcon className='myicon'/>
                         Xin chào, {user.fullName}
                     </span>
@@ -85,42 +87,42 @@ export default function AccountList() {
                 <div className='w-[100%] my-3 h-[1px] bg-[#5f5959] mx-auto'></div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover my-2'>
-                    <Link href="/tai-khoan" className={`flex w-full h-full  items-center justify-start ${tab === '' ? "text-light-yellow" : "text-white"}`}>
+                    <Link href="/tai-khoan" className={`flex w-full h-full  items-center text-[14px] justify-start ${tab === '' ? "text-light-yellow" : "text-white"}`}>
                         <FolderSharedOutlinedIcon className='myicon'/>
                         Thông tin tài khoản
                     </Link>
                 </div>
                 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover my-2'>
-                    <Link href="/tai-khoan?so-dia-chi" className={`flex w-full h-full items-center justify-start ${tab === 'so-dia-chi' ? "text-light-yellow" : "text-white"}`}>
+                    <Link href="/tai-khoan?so-dia-chi" className={`flex w-full h-full items-center text-[14px] justify-start ${tab === 'so-dia-chi' ? "text-light-yellow" : "text-white"}`}>
                         <FmdGoodOutlinedIcon className='myicon'/>
                         Sổ địa chỉ
                     </Link>
                 </div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover my-2'>
-                    <Link href='/tai-khoan?don-hang' className={`flex w-full h-full  items-center justify-start ${tab === 'don-hang' ? "text-light-yellow" : "text-white"}`}>
+                    <Link href='/tai-khoan?don-hang' className={`flex w-full h-full  items-center text-[14px] justify-start ${tab === 'don-hang' ? "text-light-yellow" : "text-white"}`}>
                         <LocalShippingOutlinedIcon className='myicon'/>
                         Đơn hàng của tôi
                     </Link>
                 </div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover my-2'>
-                    <Link href="/tai-khoan?ma-giam-gia" className={`flex w-full h-full  items-center justify-start ${tab === 'ma-giam-gia' ? "text-light-yellow" : "text-white"}`}>
+                    <Link href="/tai-khoan?ma-giam-gia" className={`flex w-full h-full  items-center text-[14px] justify-start ${tab === 'ma-giam-gia' ? "text-light-yellow" : "text-white"}`}>
                         <StyleOutlinedIcon className='myicon'/>
                         Kho voucher
                     </Link>
                 </div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover my-2'>
-                    <Link href="/tai-khoan?yeu-thich" className={`flex w-full h-full  items-center justify-start ${tab === 'yeu-thich' ? "text-light-yellow" : "text-white"}`}>
+                    <Link href="/tai-khoan?yeu-thich" className={`flex w-full h-full  items-center text-[14px] justify-start ${tab === 'yeu-thich' ? "text-light-yellow" : "text-white"}`}>
                         <InterestsOutlinedIcon className='myicon'/>
                         Danh sách yêu thích
                     </Link>
                 </div>
                 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover my-2'>
-                    <Link href="/tai-khoan?da-xem" className={`flex w-full h-full  items-center justify-start ${tab === 'da-xem' ? "text-light-yellow" : "text-white"}`}>
+                    <Link href="/tai-khoan?da-xem" className={`flex w-full h-full  items-center text-[14px] justify-start ${tab === 'da-xem' ? "text-light-yellow" : "text-white"}`}>
                         <RemoveRedEyeOutlinedIcon className='myicon'/>
                         Đã xem gần đây
                     </Link>
@@ -136,9 +138,11 @@ export default function AccountList() {
                     </button>
                 </div>
             </div>
-            <div className='w-[73%] h-[600px] p-5 rounded-[10px] bg-white shadow-menu'>
+            <div className='w-[78%] min-h-[600px] py-5 px-3 rounded-[10px] bg-white shadow-menu'> 
                 {user.email !== undefined && <>
                      {tab === '' && <UserInfo />}
+                     {tab === 'so-dia-chi' && <UserAddress />}
+                     {tab === 'don-hang' && <UserOrder />}
                 </>}
             </div>
 

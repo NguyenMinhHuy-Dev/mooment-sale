@@ -24,6 +24,7 @@ body {
 
 ::-webkit-scrollbar {
   position: fixed;
+  height: 4px;
   width: 7px;  
 }
 
@@ -33,7 +34,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #372948; 
-  height: 10px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -41,7 +42,7 @@ body {
 }
 
 .mygrid {
-  @apply max-w-[1200px] mx-auto;
+  @apply max-w-[1300px] mx-auto;
 }
 
 .myicon {
@@ -865,4 +866,61 @@ input[type=radio] ~ .geekmark {
   100% {
     transform: scale(1);
   }
+}
+
+.mytab {
+  width: calc(100% / 6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  position: relative;
+  cursor: pointer; 
+  overflow: hidden;
+}
+
+.mytab span {
+  user-select: none;
+  color: #616161;
+}
+
+.mytab.active span {
+  color:#000;
+}
+
+.mytab::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  /* border-radius: 10px; */
+  background-color: #f39c12;
+  bottom: 0;
+  transition: 0.2s linear;
+}
+
+.mytab.active::after { 
+  width: 100%; 
+  transition: 0.2s linear;
+}
+ 
+
+.mytable, tr {
+  width: 100%; 
+}
+
+.mytable th,
+.mytable td {
+  font-size: 13px; 
+  padding: 0 10px; 
+} 
+
+.mytable td {
+  font-size: 13px; 
+  padding: 10px 10px; 
+}
+
+.mytable tr:nth-child(even) {
+  background-color: #e8e9ec;
+  border-radius: 7px;
 }
