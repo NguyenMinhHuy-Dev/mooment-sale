@@ -15,7 +15,7 @@ export default function UserOrder() {
 
     const getOrders = async (status: Number) => {
         // process.env.NEXT_PUBLIC_API_URL
-        await fetch('http://localhost:3001/v1' + "/users/" + user._id + '/orders')
+        await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/" + user._id + '/orders')
         .then((res) => res.json())
         .then((res) => {
             setOrders(res);
