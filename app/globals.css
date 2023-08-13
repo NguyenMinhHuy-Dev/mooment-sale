@@ -402,6 +402,10 @@ input[type=checkbox] {
   border-color: #fff;
 }
 
+.gender2 .geekmark {
+  border-color: #000;
+}
+
 .geekmark {
   position: absolute;
   top: 0;

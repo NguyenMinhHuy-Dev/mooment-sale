@@ -31,6 +31,10 @@ export default function CheckOutPage() {
     const [district, setDistrict] = useState(''); 
     const [ward, setWard] = useState(''); 
 
+    const [provinceName, setProvinceName] = useState(''); 
+    const [districtName, setDistrictName] = useState(''); 
+    const [wardName, setWardName] = useState(''); 
+
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
@@ -45,8 +49,11 @@ export default function CheckOutPage() {
     // 0: COD       1: PAYPAL
     const [payment, setPayment] = useState(0);
 
-    const dispatch = useAppDispatch(); 
+    const dispatch: any = useAppDispatch(); 
     const products = useAppSelector((state) => state.cartReducer.cartItems);
+    const user: any = useAppSelector((state) => state.authReducer.value.user);
+    const cartItems: any = useAppSelector((state) => state.cartReducer.cartItems);
+    const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
     const totalPriceCart = useAppSelector((state) => state.cartReducer.totalAmount);
 
     const scrollToTop = () => {
@@ -58,18 +65,69 @@ export default function CheckOutPage() {
     const handleCheckOut = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsOpen(true);
-        await dispatch(reset());
-        await setIsOpen(false);
-        await setIsOpenSuccess(true);
+
+        var wardName: any = wards.find((e: any) => e.code === ward);
+        var districtName: any = districts.find((e: any) => e.code === district);
+        var provinceName: any = provinces.find((e: any) => e.code === province);
+
+        await fetch(process.env.NEXT_PUBLIC_API_URL + '/orders', {
+            cache: 'no-cache',
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 
+                customerEmail: email,
+                customerName: fullName,
+                customerPhoneNumber: phoneNumber,
+                customerAddress: address + ', ' + wardName.name_with_type + ', ' + districtName.name_with_type + ', ' + provinceName.name_with_type,
+                payment: payment === 0 ? 'COD' : 'Paypal',
+                isAuth: isAuth,
+                orderDetail: cartItems,
+                totalCost: totalPriceCart,
+                note: note,
+        })})
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            dispatch(reset());
+            setIsOpen(false);
+            setIsOpenSuccess(true);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const findWard = () => {
+        var wardName: any = wards.find((e: any) => e.code === ward);
+        // console.log(wardName)
+        return wardName.name_with_type;
+    }
+    const findDistrict = () => {
+        var districtName: any = districts.find((e: any) => e.code === district);
+        // console.log(wardName)
+        return districtName.name_with_type;
+    }
+    const findProvince = () => {
+        var provinceName: any = provinces.find((e: any) => e.code === province);
+        // console.log(wardName)
+        return provinceName.name_with_type;
     }
     
     useEffect(() => {
         if (products.length === 0) {
             router.back();
         }
+        if (isAuth) {
+            setFullName(user.fullName);
+            setEmail(user.email);
+            setPhoneNumber(user.phoneNumber);
+            setGender(user.gender);
+        }
         const getProvinces = async () => {
             setLoading(true);
-            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + '/provinces/getAll?limit=-1')
+            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + 'provinces/getAll?limit=-1')
             .then((res) => res.json())
             .then((res) => {
                 setProvinces(res.data.data);
@@ -85,11 +143,29 @@ export default function CheckOutPage() {
         getProvinces();
     }, []);
 
+    
+    useEffect(() => { 
+        const getProvinces = async () => {
+            setLoading(true);
+            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + 'provinces/getAll?limit=-1')
+            .then((res) => res.json())
+            .then((res) => {
+                setProvinces(res.data.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+            });
+        } 
+        getProvinces();
+    }, [province]);
+
     useEffect(() => {
         const getDistricts = async () => {
             setLoadingDistricts(true);
             setLoadingWards(true);
-            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + '/districts/getByProvince?provinceCode=' + province + '&limit=-1')
+            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + 'districts/getByProvince?provinceCode=' + province + '&limit=-1')
             .then((res) => res.json())
             .then((res) => {
                 setDistricts(res.data.data);
@@ -108,7 +184,7 @@ export default function CheckOutPage() {
     useEffect(() => {
         const getWards = async () => {
             setLoadingWards(true);
-            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + '/wards/getByDistrict?districtCode=' + district + '&limit=-1')
+            await fetch(process.env.NEXT_PUBLIC_VN_API_URL + 'wards/getByDistrict?districtCode=' + district + '&limit=-1')
             .then((res) => res.json())
             .then((res) => {
                 setWards(res.data.data);
@@ -156,7 +232,9 @@ export default function CheckOutPage() {
                                         name="gender"
                                         required
                                         // defaultChecked={0}
-                                        onClick={(e) => setGender(0)}
+                                        value={0}
+                                        checked={gender === 0 && true}
+                                        onChange={(e) => setGender(0)}
                                     />
                                     <span className='geekmark'></span>
                                     <p className='ml-3 text-[15px]'>Anh</p>
@@ -165,8 +243,9 @@ export default function CheckOutPage() {
                                     <input
                                         type="radio"
                                         name="gender"
-                                        // value={1}
-                                        onClick={(e) => setGender(10)}
+                                        value={1}
+                                        checked={gender === 1 && true}
+                                        onChange={(e) => setGender(1)}
                                     />
                                     <span className='geekmark'></span>
                                     <p className='ml-3 text-[15px]'>Chị</p>
@@ -202,12 +281,13 @@ export default function CheckOutPage() {
                                     className="w-[49%] py-2 pl-4 my-2 text-[15px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
                                     name="province"  
                                     required 
+                                    defaultValue={'Chọn Tỉnh / Thành phố'}
                                     onChange={(e) => setProvince(e.target.value)}
                                 >
-                                    <option className='text-[#fff]' value="" selected disabled >Chọn Tỉnh / Thành phố</option>
+                                    <option className='text-[#fff]' disabled >Chọn Tỉnh / Thành phố</option>
                                     { 
                                         provinces?.map((item: any) =>
-                                            <option className='text-white block py-2' key={item._id} value={item.code} >{item.name_with_type}</option>
+                                            <option className='text-white block py-2' key={item._id + 'province'} value={item.code} >{item.name_with_type}</option>
                                         )
                                     }
                                 </select>
@@ -215,11 +295,12 @@ export default function CheckOutPage() {
                                     className="w-[49%] py-2 pl-4 my-2 text-[15px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
                                     name="district" 
                                     required 
+                                    defaultValue={'Chọn Quận / Huyện'}
                                     onChange={(e) => setDistrict(e.target.value)}
                                 >
-                                    <option className='text-[#fff]' value="" selected disabled >Chọn Quận / Huyện</option>
+                                    <option className='text-[#fff]' disabled >Chọn Quận / Huyện</option>
                                     {!loadingDistricts && districts?.map((item: any) =>
-                                        <option className='text-white block py-2' key={item._id} value={item.code} >{item.name_with_type}</option>
+                                        <option className='text-white block py-2' key={item._id + 'district'} value={item.code} >{item.name_with_type}</option>
                                     )}
                                 </select>
                             </div> 
@@ -228,11 +309,12 @@ export default function CheckOutPage() {
                                     className="w-[49%] py-2 pl-4 my-2 text-[15px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
                                     name="ward"  
                                     required
+                                    defaultValue={'Chọn Phường / Xã'}
                                     onChange={(e) => setWard(e.target.value)}
                                 >
-                                    <option className='text-[#fff]' value="" selected disabled >Chọn Phường / Xã</option>
+                                    <option className='text-[#fff]' disabled >Chọn Phường / Xã</option>
                                     {!loadingWards && wards?.map((item: any) =>
-                                        <option className='text-white block py-2' key={item._id} value={item.code} >{item.name_with_type}</option>
+                                        <option className='text-white block py-2' key={item._id + 'ward'} value={item.code} >{item.name_with_type}</option>
                                     )}
                                 </select>
 
@@ -263,9 +345,8 @@ export default function CheckOutPage() {
                         <div className='w-full bg-white flex flex-col rounded-[10px] shadow-md p-5'>  
                             <h3 className='font-medium mb-1 text-[#757272] text-[16px] tracking-wide'>Sản phẩm</h3>  
                             <ul className='w-full flex flex-col'>
-                                {products?.map((item: any) => 
-                                    <>
-                                        <li key={item._id} className='flex w-full h-[85px] py-1 mb-5 rounded-[7px] bg-white'>
+                                {products?.map((item: any) =>  
+                                        <li key={item._id + 'product'} className='flex w-full h-[85px] py-1 mb-5 rounded-[7px] bg-white'>
                                             <div className='relative h-full aspect-square rounded-[7px] overflow-hidden'>
                                                 <Image
                                                     src={item.imageUrl}
@@ -290,8 +371,7 @@ export default function CheckOutPage() {
                                                 </div>
                                             </div>
                                             
-                                        </li> 
-                                    </>
+                                        </li>  
                                 )}
                             </ul>  
                         {/* </div> */}
@@ -384,7 +464,20 @@ export default function CheckOutPage() {
                                 {payment === 0 ? (
                                     <button type="submit" className='w-full py-[8px] outline-none rounded-[5px] bg-dark-yellow text-[#000000ca] font-black text-lg hover:bg-light-yellow hover:text-[#000]'>Thanh toán</button>
                                 ) : (   
-                                    <PayPalPayment totalCost={totalPriceCart}/>   
+                                    <PayPalPayment 
+                                        object={{ 
+                                            customerEmail: email,
+                                            customerName: fullName,
+                                            customerPhoneNumber: phoneNumber,
+                                            customerAddress: `${address} , ${findWard()}, ${findDistrict()}, ${findProvince()}`,
+                                            payment: payment === 0 ? 'COD' : 'Paypal',
+                                            isAuth: isAuth,
+                                            isPaid: true,
+                                            orderDetail: cartItems,
+                                            totalCost: totalPriceCart,
+                                            note: note,
+                                        }}  
+                                    />   
                                 )}
                             </div>
 

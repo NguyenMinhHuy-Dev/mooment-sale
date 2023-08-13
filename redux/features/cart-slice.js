@@ -36,7 +36,7 @@ export const cart = createSlice({
                 salePrice: newItem.salePrice,
                 imageUrl: newItem.imageUrl,
                 quantity: newItem.amount,
-                totalPrice: newItem.salePrice,
+                totalPrice: Number(Number(newItem.amount) * Number(newItem.salePrice)),
               }); 
             }
             else{

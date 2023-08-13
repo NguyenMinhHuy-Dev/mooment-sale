@@ -48,10 +48,10 @@ export const Success = ({ isOpen, closeModal }: AlertProps) => {
                             <div className='mygrid top-[30px] rounded-[10px] h-[900px] bg-white flex items-center flex-col justify-center'>
 
                                 <CheckCircleRoundedIcon className='checkoutsuccessicon !text-[200px] text-[#27ae60]' />
-                                <h1 className='checkoutsuccess font-bold text-[45px] uppercase tracking-widest text-[#27ae60]'>Thanh toán thành công</h1>
+                                <h1 className='checkoutsuccess font-bold text-[45px] uppercase tracking-widest text-[#27ae60]'>Đặt hàng thành công</h1>
                                 <h2 className='font-medium text-[25px] uppercase text-black'>Cảm ơn vì đã mua hàng!</h2>
                                 <div className='flex items-center justify-between mt-8'>
-                                    <Link onClick={closeModal} href="/" className=' mx-2 flex items-end justify-center py-4 px-5 rounded-[10px] text-[16px] text-black font-bold uppercase hover:text-light-yellow'><HomeRoundedIcon className='myicon'/>Trở lại trang chủ</Link>
+                                    <Link href="/" className=' mx-2 flex items-end justify-center py-4 px-5 rounded-[10px] text-[16px] text-black font-bold uppercase hover:text-light-yellow'><HomeRoundedIcon className='myicon'/>Trở lại trang chủ</Link>
                                     <Link onClick={closeModal} href="/tai-khoan/don-hang" className='w-[200px] mx-2 flex items-center justify-center  py-4 px-5 rounded-[10px] text-[16px] font-medium text-base uppercase border-2 border-black bg-white hover:bg-light-gray hover:border-light-gray hover:text-white duration-300'>Xem đơn hàng</Link>
                                 </div>
                                 <Link href="https://mooment.vercel.app/" className='absolute bottom-0 right-2 tracking-widest text-[16px]'>MOOMENT.COM</Link>

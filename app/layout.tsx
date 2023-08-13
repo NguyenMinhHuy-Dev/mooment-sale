@@ -32,15 +32,15 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {
+}) { 
   return (
     <html lang="en">
       <body className="relative bg-white">
           <Providers>
-              <Navbar />
-              {children}
-              <Footer />
-              <TawkTo />
+            <TawkTo />
+            <Navbar />
+            {children}
+            <Footer />
           </Providers> 
       </body>
     </html>

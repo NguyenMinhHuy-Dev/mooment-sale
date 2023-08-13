@@ -41,32 +41,32 @@ export default function UserHeader() {
                 </div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
-                    <Link href="/tai-khoan/don-hang" className='flex w-full h-full items-center justify-start'>
+                    <Link href='/tai-khoan?don-hang' className='flex w-full h-full items-center justify-start'>
                         <LocalShippingOutlinedIcon className='myicon'/>
                         Đơn hàng của tôi
                     </Link>
                 </div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
-                    <Link href="/tai-khoan/da-xem" className='flex w-full h-full items-center justify-start'>
-                        <RemoveRedEyeOutlinedIcon className='myicon'/>
-                        Đã xem gần đây
-                    </Link>
-                </div>
-
-                <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
-                    <Link href="/tai-khoan/ma-giam-gia" className='flex w-full h-full items-center justify-start'>
+                    <Link href="/tai-khoan?ma-giam-gia" className='flex w-full h-full items-center justify-start'>
                         <StyleOutlinedIcon className='myicon'/>
                         Kho voucher
                     </Link>
                 </div>
 
                 <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
-                    <Link href="/tai-khoan/yeu-thich" className='flex w-full h-full items-center justify-start'>
+                    <Link href="/tai-khoan?yeu-thich" className='flex w-full h-full items-center justify-start'>
                         <InterestsOutlinedIcon className='myicon'/>
                         Danh sách yêu thích
                     </Link>
                 </div>
+                
+                {/* <div className='flex w-full h-[40px] items-center justify-start boldOnHover'>
+                    <Link href="/tai-khoan/da-xem" className='flex w-full h-full items-center justify-start'>
+                        <RemoveRedEyeOutlinedIcon className='myicon'/>
+                        Đã xem gần đây
+                    </Link>
+                </div> */}
 
                 <div className='w-full h-[1px] bg-[#d1d1d1] my-4'></div>
 

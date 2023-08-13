@@ -137,7 +137,7 @@ export default function ProductInfo({ product }) {
                                     modules={[EffectFade, Autoplay, FreeMode, Navigation, Thumbs]} 
                                     className="myslide w-full aspect-square rounded-[10px] overflow-hidden mb-1"
                                 >
-                                    {product.imageList.map((item, index) =>    
+                                    {product.imageList.map((item) =>    
                                         <SwiperSlide key={item} className='!flex overflow-hidden'> 
                                             <Image 
                                                 src={item}
@@ -161,7 +161,7 @@ export default function ProductInfo({ product }) {
                                     className="myslide2 w-full !h-[100px] box-border py-[10px]"
                                 >
                                     {product.imageList.map((item) =>    
-                                        <SwiperSlide key={item}> 
+                                        <SwiperSlide key={item + '1'}> 
                                             <Image 
                                                 src={item}
                                                 alt='product image'
@@ -186,7 +186,7 @@ export default function ProductInfo({ product }) {
                             })}
                             {Array.apply(null, Array(Math.round(10 - product.rated))).map(function (_, i) {
                                 return (
-                                    <StarOutlineRoundedIcon className='!text-[30px] text-light-yellow'/>
+                                    <StarOutlineRoundedIcon key={i + 100} className='!text-[30px] text-light-yellow'/>
                                 )
                             })}
                             <span className='font-bold text-light-yellow ml-2 text-[16px]'>{product.rated} / 10</span>

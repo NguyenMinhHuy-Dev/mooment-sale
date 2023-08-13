@@ -47,18 +47,8 @@ export default function ProductsRelate({ product }: any) {
                       modules={[ Navigation, Pagination]} 
                       className="mySwiper h-[400px] rounded-[10px]"
                   >
-                    {products.map((item: any) => 
-                      <>
-                      
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      <SwiperSlide><ProductCard isFlashsale={false} data={item} /></SwiperSlide>
-                      </>
+                    {products.map((item: any) =>  
+                      <SwiperSlide key={item._id + 'related'}><ProductCard isFlashsale={false} data={item} /></SwiperSlide>  
                     )}
                   </Swiper>
                 </div>
