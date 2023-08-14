@@ -16,9 +16,9 @@
 
 body {
   background: white;
-  background-image: radial-gradient(circle at 1px 1px, #d3d3d3 1px, transparent 0);
+  /* background-image: radial-gradient(circle at 1px 1px, #d3d3d3 1px, transparent 0);
   background-size: 20px 20px;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   overflow-y: scroll;
 }
 
@@ -923,4 +923,36 @@ input[type=radio] ~ .geekmark {
 .mytable tr:nth-child(even) {
   background-color: #e8e9ec;
   border-radius: 7px;
+}
+
+.myorders {
+  transition: 0.5s ease-in;
+}
+
+.myorders.true {
+  transform: translateX(-100%);
+  transition: 0.5s ease-out;
+}
+
+
+.myorders .mydetailorder {
+  opacity: 0;
+  transition: 0.2s linear;
+}
+
+.myorders.true .mydetailorder { 
+  opacity: 1;
+  transition: 0.2s ease-out;
+}
+
+
+.mytable2,
+.mytable2 thead,
+.mytable2 tbody,
+.mytable2 tr,
+.mytable2 th,
+.mytable2 td {
+  border: 1px solid #000;
+  font-size: 13px;
+  padding: 5px;
 }
