@@ -9,8 +9,8 @@ export default function ProductDescription({ product }: any) {
                     <div className='w-full text-center'>
                         <h2 className='mygradienttitle uppercase text-[25px] tracking-widest'>Thông tin sản phẩm</h2>
                     </div>
-                    <div className='w-full text-justify text-[15px]'>
-                        {product.description}
+                    <div className='w-full text-justify text-[15px]' dangerouslySetInnerHTML={{ __html: product.description }}>
+                        {/* {product.description} */}
                     </div>
                 </div>
 
