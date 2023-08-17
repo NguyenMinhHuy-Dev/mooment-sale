@@ -956,3 +956,37 @@ input[type=radio] ~ .geekmark {
   font-size: 13px;
   padding: 5px;
 }
+
+
+
+.mytable-2 tr {
+  @apply w-full flex items-center justify-between text-[14px];
+}
+
+.mytable-2 table {
+  width: 100%;
+}
+
+.mytable-2  tr {
+  padding: 4px 0;
+}
+
+.mytable-2 , tr {
+  width: 100%; 
+}
+
+.mytable-2  th,
+.mytable-2  td {
+  font-size: 13px; 
+  padding: 0 10px; 
+} 
+
+.mytable-2  td {
+  font-size: 13px; 
+  padding: 10px 10px; 
+}
+
+.mytable-2  tr:nth-child(even) {
+  background-color: #e8e9ec;
+  border-radius: 7px;
+}
