@@ -3,6 +3,7 @@ import './globals.css'
 import TawkTo from '@/components/TawkTo'; 
 import { Providers } from '@/redux/provider';
 import Footer from '@/components/Footer';
+import MessengerChat from '@/components/MessengerChat';
 
 
 export async function generateMetadata() {
@@ -38,6 +39,7 @@ export default function RootLayout({
       <body className="relative bg-white">
           <Providers>
             <TawkTo />
+            <MessengerChat />
             <Navbar />
             {children}
             <Footer />
