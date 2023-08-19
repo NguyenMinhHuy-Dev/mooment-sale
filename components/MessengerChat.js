@@ -1,7 +1,9 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function MessengerChat() { 
+    useEffect(() => {
+      
     var chatbox = document.getElementById('fb-customer-chat')
     chatbox?.setAttribute("page_id", process.env.NEXT_PUBLIC_FB_PAGE_ID);
     chatbox?.setAttribute("attribution", "biz_inbox");
@@ -20,6 +22,8 @@ export default function MessengerChat() {
         js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+        
+    })
     return (
         <> 
             <div id="fb-root"></div>
