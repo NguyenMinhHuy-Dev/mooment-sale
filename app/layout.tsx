@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import MailChimpPopUp from '@/components/MailChimpPopUp';
 import MessengerChat from '@/components/MessengerChat';
 import Script from 'next/script';
+import Head from 'next/head';
 
 
 export async function generateMetadata() {
@@ -38,18 +39,21 @@ export default function RootLayout({
 }) { 
   return (
     <html lang="en"> 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-J9WGMJM2PN"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date()); 
-            gtag('config', 'G-J9WGMJM2PN');
-          `
-        }}
-      > 
-      </script>
+      <Head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J9WGMJM2PN"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date()); 
+              gtag('config', 'G-J9WGMJM2PN');
+            `
+          }}
+        > 
+        </script>
+      </Head>
+      
 
       <Script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64e1d1a680556000127479ff&product=inline-share-buttons&source=platform"></Script>
       <Script id="mcjs">
