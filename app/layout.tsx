@@ -38,10 +38,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) { 
   return (
-    <html lang="en"> 
-      <Head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J9WGMJM2PN"></script>
-        <script
+    <html lang="en">  
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-J9WGMJM2PN"></Script>
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -51,10 +50,7 @@ export default function RootLayout({
             `
           }}
         > 
-        </script>
-      </Head>
-      
-
+        </Script>  
       <Script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64e1d1a680556000127479ff&product=inline-share-buttons&source=platform"></Script>
       <Script id="mcjs">
             {`!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/b20d117330404a90801147d3f/1d24ba73d202403817eda5d3d.js");`}
