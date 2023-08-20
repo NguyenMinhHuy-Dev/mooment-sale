@@ -5,6 +5,7 @@ import { Providers } from '@/redux/provider';
 import Footer from '@/components/Footer';
 import MailChimpPopUp from '@/components/MailChimpPopUp';
 import MessengerChat from '@/components/MessengerChat';
+import Script from 'next/script';
 
 
 export async function generateMetadata() {
@@ -39,7 +40,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative bg-white">
           <Providers>
-            <MailChimpPopUp />
+            {/* <MailChimpPopUp /> */}
             <TawkTo />
             <MessengerChat />
             <Navbar />
@@ -47,6 +48,9 @@ export default function RootLayout({
             <Footer />
           </Providers> 
       </body>
+      <Script id="mcjs" strategy="beforeInteractive">
+            {`!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/b20d117330404a90801147d3f/1d24ba73d202403817eda5d3d.js");`}
+      </Script>
     </html>
   )
 }
