@@ -94,12 +94,12 @@ export default function Footer() {
                 </div>
                 <h4 className='font-bold text-[16px] text-light-yellow  mt-8'>CÁCH THỨC THANH TOÁN</h4>
                 <div className='w-full grid grid-cols-2 gap-1 mt-2'>
-                    <div className='relative w-full h-[60px] bg-white rounded-[10px]'>
+                    <div className='relative w-full h-[60px] rounded-[10px]'>
                         <Image 
-                            src="https://img.mservice.io/momo-payment/icon/images/logo512.png"
+                            src="https://cdn.printgo.vn/uploads/media/779402/ship-cod-la-gi-4_1598600664.jpg"
                             alt='Shipping'
                             fill
-                            className='object-contain'
+                            className='object-cover  rounded-[10px]'
                         />
                     </div>
                     <div className='relative w-full h-[60px]'>
@@ -107,7 +107,7 @@ export default function Footer() {
                             src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_266x142.png"
                             alt='payment'
                             fill
-                            className='object-contain rounded-[10px]'
+                            className='object-cover rounded-[10px]'
                         />
                     </div> 
                 </div>

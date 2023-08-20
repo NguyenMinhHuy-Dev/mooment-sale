@@ -7,9 +7,34 @@ import React, { useState, useEffect } from 'react';
 import ProductDescription from './ProductDescription';
 import ProductComments from './ProductComments';
 import ProductsRelate from './ProductsRelate';
+import { useAppDispatch, useAppSelector } from '@/redux/store'; 
+import { addToLately, reset } from '@/redux/features/product-slide';
+import ProductsLately from './ProductsLately'; 
 
 export default function ProductDetail({slug}: {slug : string}) {
   const [product, setProduct] = useState<null | any>({});
+
+  const dispatch = useAppDispatch();
+  const lately: any = useAppSelector((state) => state.productReducer.list);
+  const isAuth: any = useAppSelector((state) => state.authReducer.value.isAuth);
+  const user: any = useAppSelector((state) => state.authReducer.value.user);
+
+  const addToLateLyList = async (id: any) => {
+    // process.env.NEXT_PUBLIC_API_URL
+    await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/" + user._id + "/lately", {
+      cache: 'no-cache',
+      method: "PUT",
+      body: JSON.stringify({ id }),
+      headers: { 'Content-type': 'application/json' }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   useEffect(() => {
     const getProduct = async () => {
@@ -19,14 +44,20 @@ export default function ProductDetail({slug}: {slug : string}) {
         headers: { 'Content-type': 'application/json' }
       })
       .then((res) => res.json())
-      .then((res) => {
+      .then((res: any) => {
         setProduct(res);
+        dispatch(addToLately(res));
+        if (isAuth) {
+          addToLateLyList(res._id);
+        }
       })
       .catch((err) => {
         console.log(err);
       })
-    };
+    }; 
+
     getProduct();
+
   }, [slug])
   return (
     <div className='mysection min-h-[100vh] mb-[30px]'>
@@ -57,6 +88,9 @@ export default function ProductDetail({slug}: {slug : string}) {
           <ProductDescription product={product}/>
           {/* <ProductComments product={product}/> */}
           <ProductsRelate product={product}/>
+          {lately?.length > 0 && 
+            <ProductsLately />
+          }
         </>
       }
     </div>

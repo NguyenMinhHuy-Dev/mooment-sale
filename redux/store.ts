@@ -3,6 +3,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authReducer from "./features/auth-slice";
 import cartReducer from "./features/cart-slice";
+import productReducer from "./features/product-slide";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist'; 
@@ -17,6 +18,7 @@ const persistConfig = {
 const reducer = combineReducers({
     authReducer,
     cartReducer,
+    productReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer);

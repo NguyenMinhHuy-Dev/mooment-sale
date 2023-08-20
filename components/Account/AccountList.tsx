@@ -18,6 +18,8 @@ import UserInfo from '../User/UserInfo';
 import { SignFormModal } from '../Modal/SignFormModal';
 import UserAddress from '../User/UserAddress';
 import UserOrder from '../User/UserOrder';
+import UserLately from '../User/UserLately';
+import UserFavourite from '../User/UserFavourite';
 
 export default function AccountList() { 
     const params = useSearchParams();
@@ -138,11 +140,13 @@ export default function AccountList() {
                     </button>
                 </div>
             </div>
-            <div className='w-[78%] min-h-[600px] py-5 px-3 rounded-[10px] bg-white shadow-menu'> 
+            <div className='w-[78%] min-h-[600px] py-5 px-3  mb-[40px] rounded-[10px] bg-white shadow-menu'> 
                 {user.email !== undefined && <>
                      {tab === '' && <UserInfo />}
                      {tab === 'so-dia-chi' && <UserAddress />}
                      {tab === 'don-hang' && <UserOrder />}
+                     {tab === 'da-xem' && <UserLately />}
+                     {tab === 'yeu-thich' && <UserFavourite />}
                 </>}
             </div>
 

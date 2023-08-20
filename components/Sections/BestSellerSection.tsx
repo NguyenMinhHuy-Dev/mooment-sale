@@ -19,7 +19,7 @@ export default function BestSellerSection() {
           await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
           .then(res => res.json())
           .then(res => {
-              setProducts(res);
+              setProducts(res.sort((a: any, b: any) => b.sold - a.sold));
               setLoading(false);
           })
           .catch((err) => {
@@ -52,17 +52,9 @@ export default function BestSellerSection() {
               modules={[ Pagination]} 
               className="mySwiper h-full"
           > 
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>  
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>   
-            <SwiperSlide><ProductCard  isFlashsale={false} data={products[0]} /> </SwiperSlide>    
+            {products?.map((item: any) => 
+              <SwiperSlide><ProductCard  isFlashsale={false} data={item} /> </SwiperSlide>   
+            )}   
           </Swiper>
         ) : (
           <div className='w-full grid grid-cols-5 gap-5'>

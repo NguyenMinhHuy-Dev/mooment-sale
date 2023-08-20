@@ -23,7 +23,7 @@ export default function TopProductsSection({ category, direction }: { category: 
                 // res.map((item: any) => {
                 //     console.log(item.category.name.toString());
                 // })
-                setProducts(res.filter((item: any) => item.category.name === category));
+                setProducts(res.filter((item: any) => item.category.name === category).sort((a: any, b:any) => b.sold - a.sold));
                 setLoading(false);
             })
             .catch((err) => { 

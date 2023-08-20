@@ -13,10 +13,14 @@ import TopProductsSection from "@/components/Sections/TopProductsSection";
 import PreOrderSection from "@/components/Sections/PreOrderSection"; 
 import VouchersSection from "@/components/Sections/VouchersSection";
 import SubscribeFormSection from "@/components/Sections/SubscribeFormSection";
-import NewsSection from "@/components/Sections/NewsSection"; 
-
+import NewsSection from "@/components/Sections/NewsSection";  
+import { addToLately, reset } from '@/redux/features/product-slide'; 
+import ProductsLately from "@/components/Product/ProductsLately";
 
 export default function Home() {
+  
+  const lately: any = useAppSelector((state) => state.productReducer.list);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -42,7 +46,9 @@ export default function Home() {
       <VouchersSection />
       <SubscribeFormSection />
       <NewsSection />
-
+      {lately?.length > 0 && 
+        <ProductsLately />
+      }
       {/* <PreOrderSection /> */}
 
       {/* <TopCategoriesSection /> */}

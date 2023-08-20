@@ -41,9 +41,9 @@ export const auth = createSlice({
                 
                 console.log(state.value.user);
             // }
-        }
+        },
     }
 });
 
-export const { signIn, logOut, addToFavourite } = auth.actions;
+export const { signIn, logOut, addToFavourite, addToLately } = auth.actions;
 export default auth.reducer;

@@ -6,36 +6,38 @@ import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ProductCard from './ProductCard';
+import { useAppSelector } from '@/redux/store';
 
-export default function ProductsRelate({ product }: any) {
-  const [products, setProducts] = useState([]);
+export default function ProductsLately() {
+  // const [products, setProducts] = useState([]);
 
-  const getProducts = async () => {
-    await fetch(process.env.NEXT_PUBLIC_API_URL + "/products/" + product.slug + "/relate", {
-      cache: 'no-cache',
-      method: "GET", 
-      headers: { 'Content-type': 'application/json' }
-    })
-    .then((res) => res.json())
-    .then((res) => {
-      setProducts(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+  const products: any = useAppSelector((state) => state.productReducer.list);
 
-  useEffect(() => {
-    if (Object.keys(product).length > 0)
-      getProducts();
-  }, [product])
+  // const getProducts = async () => {
+  //   await fetch(process.env.NEXT_PUBLIC_API_URL + "/products/" + product.slug + "/relate", {
+  //     cache: 'no-cache',
+  //     method: "GET", 
+  //     headers: { 'Content-type': 'application/json' }
+  //   })
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     setProducts(res);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // }
+
+  // useEffect(() => {
+  //   getProducts();
+  // }, [product])
 
   return (
     <div className='mygrid mt-[20px] min-h-[500px]'>
         {products.length !== 0 && 
             <>
                 <div className="w-full flex items-center justify-between py-2 px-4 bg-white shadow-threed rounded-[10px]">
-                  <h2 className="font-bold text-[25px]">Sản phẩm liên quan</h2>
+                  <h2 className="font-bold text-[25px]">Đã xem gần đây</h2>
                 </div>
                 <div className='myslide w-full mt-3'>
                   <Swiper
