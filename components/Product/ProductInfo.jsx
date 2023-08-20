@@ -246,6 +246,9 @@ export default function ProductInfo({ product }) {
                             </button>
                             
                         </div>
+                        <div className='mt-3 w-full h-[100px]'>
+                            <div class="sharethis-inline-share-buttons"></div>
+                        </div>
                     </div>
                     
                     <div className='w-[30%] h-full'> 
