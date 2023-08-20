@@ -3,6 +3,7 @@ import './globals.css'
 import TawkTo from '@/components/TawkTo'; 
 import { Providers } from '@/redux/provider';
 import Footer from '@/components/Footer';
+import MailChimpPopUp from '@/components/MailChimpPopUp';
 import MessengerChat from '@/components/MessengerChat';
 
 
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative bg-white">
           <Providers>
+            <MailChimpPopUp />
             <TawkTo />
             <MessengerChat />
             <Navbar />
