@@ -20,14 +20,6 @@ export async function POST(request: Request) {
             email_address: email,
             status: 'subscribed',
         };
-        // const response = await fetch(`https://${DATACENTER}.api.mailchimp/3.0/lists/${AUDIENCE_ID}/members`, {
-        //     body: JSON.stringify(data),
-        //     headers: {
-        //         Authorization: `apikey ${API_KEY}`,
-        //         'Content-Type': 'application/json',
-        //     },
-        //     method: 'POST',
-        // });
  
         const url = process.env.NEXT_PUBLIC_MAILCHIMP_URL;
         const response = await fetch(`${url}&EMAIL=${email}`, {
