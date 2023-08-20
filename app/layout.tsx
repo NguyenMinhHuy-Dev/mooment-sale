@@ -39,6 +39,10 @@ export default function RootLayout({
 }) { 
   return (
     <html lang="en">  
+      <Head>
+        <meta name="google-site-verification" content="mCluf7z9mQW4wrvxzO0DiuHPIlXcd3TVaJw8_lSjJQ4" />
+      </Head>
+
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-J9WGMJM2PN"></Script>
         <Script
           dangerouslySetInnerHTML={{
@@ -51,7 +55,8 @@ export default function RootLayout({
           }}
         > 
         </Script>  
-      <Script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64e1d1a680556000127479ff&product=inline-share-buttons&source=platform"></Script>
+        <Script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=64e1d1a680556000127479ff&product=inline-share-buttons' async></Script>
+        {/* <Script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64e1d1a680556000127479ff&product=inline-share-buttons&source=platform"></Script> */}
       <Script id="mcjs" dangerouslySetInnerHTML={{__html: `
         !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/b20d117330404a90801147d3f/1d24ba73d202403817eda5d3d.js");
       `}}> 
