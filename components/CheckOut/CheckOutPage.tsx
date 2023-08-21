@@ -72,6 +72,7 @@ export default function CheckOutPage() {
         var provinceName: any = provinces.find((e: any) => e.code === province);
 
         // process.env.NEXT_PUBLIC_API_URL
+
         await fetch(process.env.NEXT_PUBLIC_API_URL + '/orders', {
             cache: 'no-cache',
             method: "POST",
@@ -91,14 +92,12 @@ export default function CheckOutPage() {
                 voucher: voucher.price
         })})
         .then((res) => res.json())
-        .then((res) => {
-            console.log(res);
+        .then((res) => { 
             dispatch(reset());
             setIsOpen(false);
             setIsOpenSuccess(true);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch((err) => { 
         })
     }
 

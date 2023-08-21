@@ -173,8 +173,8 @@ export default function UserOrder() {
                     <SearchRoundedIcon />
                 </div>
 
-                <div className='w-full mt-5 h-[370px] overflow-x-scroll overflow-y-auto pb-6'>  
-                    <table className='mytable '>
+                <div className='w-full mt-5 h-[370px] overflow-x-hidden overflow-y-auto pb-6'>  
+                    <table className='mytable'>
                         <thead>
                             <tr>
                                 <th className='w-[40px] text-center overflow-x-auto'>No</th>
