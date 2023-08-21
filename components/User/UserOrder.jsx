@@ -29,6 +29,8 @@ export default function UserOrder() {
     const [search, setSearch] = useState('');
     const [tab, setTab] = useState(-1); 
 
+    const [loadingDetail, setLoadingDetail] = useState(false);
+
     const user = useAppSelector((state) => state.authReducer.value.user);
     
     let componentRef = useRef();
@@ -79,6 +81,25 @@ export default function UserOrder() {
         mywindow.focus();
         mywindow.print();
         // mywindow.close();
+    }
+
+    const handleOk = async (id, status) => {
+        setLoadingDetail(true);
+        await fetch(process.env.NEXT_PUBLIC_API_URL + '/orders/' + id, {
+            method: "PUT",
+            body: JSON.stringify({status}),
+            headers: { 'Content-type': 'application/json' }
+        })
+        .then((res) => res.json())
+        .then((res) => { 
+            setHide(false);
+            setLoadingDetail(false);
+        })
+        .catch((err) => { 
+            setHide(false);
+            setLoadingDetail(false);
+        })
+        await getOrders();
     }
 
     useEffect(() => { 
@@ -202,145 +223,159 @@ export default function UserOrder() {
                         />
                     </div> 
 
-                    <div className='w-full min-h-[527px] overflow-y-auto flex justify-between items-center'> 
-                        <div className='w-[45%] h-full bg-light-gray rounded-[10px]'>  
-                            <div className='w-full bg-light-gray flex flex-col rounded-[10px] p-3'> 
-                                <span className='text-[14px] text-white'>Mã đơn hàng: <strong>{order._id}</strong></span>
-                                <span className='text-[14px] mb-4 text-white'>Ngày tạo: <strong>{(new Date(order.createdAt)).toLocaleString('vi-VN')}</strong></span>
-                                <h2 className='font-medium mb-1 text-[#ffffff] text-[14px] tracking-wide'>Thông tin khách hàng</h2>
-                                <input 
-                                    placeholder="Họ và tên (Bắt buộc)" 
-                                    className="w-[100%] py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
-                                    disabled
-                                    value={order?.customerName}
-                                    type="text" 
-                                    name="fullName" 
-                                />
-                                
-                                <input 
-                                    placeholder="Email (Bắt buộc)" 
-                                    className="w-[100%] py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
-                                    disabled 
-                                    value={order?.customerEmail}
-                                    type="email" 
-                                    name="email" 
-                                />
-                                <input 
-                                    placeholder="Số điện thoại (Bắt buộc)" 
-                                    className="w-[100%] py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
-                                    disabled
-                                    value={order?.customerPhoneNumber}
-                                    name="phoneNumber" 
-                                />
-
-                                <h2 className='font-medium mb-1 mt-4 text-[#fff] text-[14px] tracking-wide'>Địa chỉ nhận hàng</h2> 
-                                <textarea 
-                                    
-                                    className="w-[100%] resize-none  py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
-                                    disabled
-                                    value={order?.customerAddress}
-                                    name="address" 
-                                />
-
-                                <h2 className='font-medium mb-1 mt-4 text-[#fff] text-[14px] tracking-wide'>Ghi chú cho đơn hàng</h2>
-                                <textarea 
-                                    placeholder="Bạn muốn ghi chú gì cho đơn hàng?" 
-                                    className="w-[100%] h-[100px] resize-none py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e]  rounded-lg outline-none"   
-                                    disabled
-                                    value={order?.note}
-                                    name="note" 
-                                />
-                            </div> 
-                        </div> 
-
-                        <div className='w-[54%] h-full rounded-[10px]'> 
-                            <div className='w-full h-full bg-white flex flex-col'>  
-                                <h3 className='font-medium mb-1 text-[#757272] text-[16px] tracking-wide'>Sản phẩm</h3>  
-                                <ul className='w-full flex flex-col'>
-                                    {order.orderDetail?.map((item) =>  
-                                            <li key={item._id + 'product'} className='flex w-full h-[85px] py-1 mb-5 rounded-[7px] bg-white'>
-                                                <div className='relative h-full aspect-square rounded-[7px] overflow-hidden'>
-                                                    <Image
-                                                        src={item.imageUrl}
-                                                        alt={item.name}
-                                                        fill 
-                                                    />
-                                                </div>
-                                                <div className='ml-2 flex-1 h-full flex flex-col'>
-                                                    <div className='text-left w-full h-[40px] mb-1'>
-                                                        <span className='font-medium text-[15px] leading-5 line-clamp-2 overflow-hidden whitespace-pre-wrap'> 
-                                                            {item.name}
-                                                        </span>
-                                                    </div>
-                                                    <div className='w-full flex justify-between items-center mb-1'>
-                                                        <span className='text-[13px] text-[#929292]'>Số lượng: {item.quantity}</span>
-                                                        <span className='text-[13px] text-[#929292]'></span>
-                                                        
-                                                    </div>
-                                                    <div className='w-full flex justify-between items-end'> 
-                                                        <span className='text-[15px] text-[#929292] leading-[15px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.salePrice)}</span>
-                                                        <span className='font-bold text-black text-[16px] leading-[15px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalPrice)}</span>
-                                                    </div>
-                                                </div>
-                                                
-                                            </li>  
-                                    )}
-                                </ul>   
-                                <h3 className='font-medium mb-1 mt-4 text-[#757272] text-[16px] tracking-wide'>Khuyến mãi cho đơn hàng</h3>  
-                                    
-                                <div className='w-full flex items-center justify-between'> 
-                                    <div className='flex items-center'> 
-                                        <Image 
-                                            src="/logo-1.png"
-                                            alt="logo"
-                                            width={70}   
-                                            height={70}
-                                            className='object-contain' 
+                    {!loadingDetail ? (
+                        <> 
+                            <div className='w-full min-h-[527px] overflow-y-auto flex justify-between items-center'> 
+                                <div className='w-[45%] h-full bg-light-gray rounded-[10px]'>  
+                                    <div className='w-full bg-light-gray flex flex-col rounded-[10px] p-3'> 
+                                        <span className='text-[14px] text-white'>Mã đơn hàng: <strong>{order._id}</strong></span>
+                                        <span className='text-[14px] mb-4 text-white'>Ngày tạo: <strong>{(new Date(order.createdAt)).toLocaleString('vi-VN')}</strong></span>
+                                        <h2 className='font-medium mb-1 text-[#ffffff] text-[14px] tracking-wide'>Thông tin khách hàng</h2>
+                                        <input 
+                                            placeholder="Họ và tên (Bắt buộc)" 
+                                            className="w-[100%] py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
+                                            disabled
+                                            value={order?.customerName}
+                                            type="text" 
+                                            name="fullName" 
                                         />
-                                        <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
-                                        <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                            <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ {order.voucher/1000}K</h4> 
-                                        </div>
-                                    </div>   
-                                        <span className='font-medium cursor-default text-[15px] text-light-red mr-2'>Đã dùng</span>
-                                </div>
-
-                                <div className='w-full mb-1 mt-6 flex items-center justify-between'>
-                                    <h3 className='font-medium text-[#757272] text-[16px] tracking-wide'>Phương thức thanh toán</h3> 
-                                    <span>{order.payment}</span>
-                                </div>
-
-                                <div className='w-full h-[1px] mt-[40px] bg-[#d1d1d1]'></div>
-
-                                <div className='w-full mt-4'>
-                                    
-                                    <div className='w-full mt-2 flex items-end justify-between'>
-                                        <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Voucher:</h3>  
-                                        <span className='font-black text-[15px] text-black'>-{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.voucher)}</span>
-                                    </div>
-                                    <div className='w-full mt-2 flex items-end justify-between'>
-                                        <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Phí vận chuyển:</h3>  
-                                        <span className='font-black text-[15px] text-black'> 
-                                            Miễn phí
-                                        </span>
-                                    </div>
-                                    <div className='w-full mt-2 flex items-end justify-between'>
-                                        <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Thành tiền:</h3>  
-                                        <span className='font-black text-[20px] text-light-red'>
-                                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalCost)}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className='w-full mt-4'>
-                                    
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-
                                         
-                    <ComponentToPrint data={order} ref={componentRef} />   
+                                        <input 
+                                            placeholder="Email (Bắt buộc)" 
+                                            className="w-[100%] py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
+                                            disabled 
+                                            value={order?.customerEmail}
+                                            type="email" 
+                                            name="email" 
+                                        />
+                                        <input 
+                                            placeholder="Số điện thoại (Bắt buộc)" 
+                                            className="w-[100%] py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
+                                            disabled
+                                            value={order?.customerPhoneNumber}
+                                            name="phoneNumber" 
+                                        />
+
+                                        <h2 className='font-medium mb-1 mt-4 text-[#fff] text-[14px] tracking-wide'>Địa chỉ nhận hàng</h2> 
+                                        <textarea 
+                                            
+                                            className="w-[100%] resize-none  py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e] rounded-lg outline-none" 
+                                            disabled
+                                            value={order?.customerAddress}
+                                            name="address" 
+                                        />
+
+                                        <h2 className='font-medium mb-1 mt-4 text-[#fff] text-[14px] tracking-wide'>Ghi chú cho đơn hàng</h2>
+                                        <textarea 
+                                            placeholder="Bạn muốn ghi chú gì cho đơn hàng?" 
+                                            className="w-[100%] h-[100px] resize-none py-2 pl-4 my-1 text-[13px] text-white bg-[#4e4e4e]  rounded-lg outline-none"   
+                                            disabled
+                                            value={order?.note}
+                                            name="note" 
+                                        />
+                                    </div> 
+                                </div> 
+
+                                <div className='w-[54%] h-full rounded-[10px]'> 
+                                    <div className='w-full h-full bg-white flex flex-col'>  
+                                        <h3 className='font-medium mb-1 text-[#757272] text-[16px] tracking-wide'>Sản phẩm</h3>  
+                                        <ul className='w-full flex flex-col'>
+                                            {order.orderDetail?.map((item) =>  
+                                                    <li key={item._id + 'product'} className='flex w-full h-[85px] py-1 mb-5 rounded-[7px] bg-white'>
+                                                        <div className='relative h-full aspect-square rounded-[7px] overflow-hidden'>
+                                                            <Image
+                                                                src={item.imageUrl}
+                                                                alt={item.name}
+                                                                fill 
+                                                            />
+                                                        </div>
+                                                        <div className='ml-2 flex-1 h-full flex flex-col'>
+                                                            <div className='text-left w-full h-[40px] mb-1'>
+                                                                <span className='font-medium text-[15px] leading-5 line-clamp-2 overflow-hidden whitespace-pre-wrap'> 
+                                                                    {item.name}
+                                                                </span>
+                                                            </div>
+                                                            <div className='w-full flex justify-between items-center mb-1'>
+                                                                <span className='text-[13px] text-[#929292]'>Số lượng: {item.quantity}</span>
+                                                                <span className='text-[13px] text-[#929292]'></span>
+                                                                
+                                                            </div>
+                                                            <div className='w-full flex justify-between items-end'> 
+                                                                <span className='text-[15px] text-[#929292] leading-[15px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.salePrice)}</span>
+                                                                <span className='font-bold text-black text-[16px] leading-[15px]'>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalPrice)}</span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </li>  
+                                            )}
+                                        </ul>   
+                                        <h3 className='font-medium mb-1 mt-4 text-[#757272] text-[16px] tracking-wide'>Khuyến mãi cho đơn hàng</h3>  
+                                            
+                                        <div className='w-full flex items-center justify-between'> 
+                                            <div className='flex items-center'> 
+                                                <Image 
+                                                    src="/logo-1.png"
+                                                    alt="logo"
+                                                    width={70}   
+                                                    height={70}
+                                                    className='object-contain' 
+                                                />
+                                                <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
+                                                <div className='h-[80%] ml-2 flex flex-col justify-center'>
+                                                    <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ {order.voucher/1000}K</h4> 
+                                                </div>
+                                            </div>   
+                                                <span className='font-medium cursor-default text-[15px] text-light-red mr-2'>Đã dùng</span>
+                                        </div>
+
+                                        <div className='w-full mb-1 mt-6 flex items-center justify-between'>
+                                            <h3 className='font-medium text-[#757272] text-[16px] tracking-wide'>Phương thức thanh toán</h3> 
+                                            <span>{order.payment}</span>
+                                        </div>
+
+                                        <div className='w-full h-[1px] mt-[40px] bg-[#d1d1d1]'></div>
+
+                                        <div className='w-full mt-4'>
+                                            
+                                            <div className='w-full mt-2 flex items-end justify-between'>
+                                                <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Voucher:</h3>  
+                                                <span className='font-black text-[15px] text-black'>-{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.voucher)}</span>
+                                            </div>
+                                            <div className='w-full mt-2 flex items-end justify-between'>
+                                                <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Phí vận chuyển:</h3>  
+                                                <span className='font-black text-[15px] text-black'> 
+                                                    Miễn phí
+                                                </span>
+                                            </div>
+                                            <div className='w-full mt-2 flex items-end justify-between'>
+                                                <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Thành tiền:</h3>  
+                                                <span className='font-black text-[20px] text-light-red'>
+                                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalCost)}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className='w-full mt-4 text-right'>
+                                            {order.status === 2 &&
+                                                <> 
+                                                    <button onClick={() => handleOk(order._id, 4)} className='font-bold py-[10px] px-[15px] bg-light-red text-[15px] mr-3 rounded-[10px]'>Hủy</button>
+                                                    <button onClick={() => handleOk(order._id, 3)} className='font-bold py-[10px] px-[15px] bg-light-yellow text-[15px] rounded-[10px]'>Đã nhận được hàng</button>
+                                                    <span className='text-[13px] block text-light-red italic'>*Lưu ý: Chỉ bấm nhận hàng khi hàng đã được giao thành công</span>
+                                                </>
+                                            }
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+
+                                                
+                            <ComponentToPrint data={order} ref={componentRef} />   
+                        </>
+                    ) : (
+                        <div className='w-full h-full flex items-center justify-center'>
+                            <span className='myloading'></span>
+                        </div>
+                    )}
                 </div>      
                  
             </div>
