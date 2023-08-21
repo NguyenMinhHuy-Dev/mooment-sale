@@ -121,7 +121,9 @@ export default function ProductCard({ isFlashsale, data }: { isFlashsale: boolea
                         
                     </div>
                     <div className='w-[50%] text-right'> 
-                        <span className='text-light-red text-[13px] font-bold p-2 border border-light-red rounded bg-[#ebcac6a6]'>-12%</span>
+                        {data?.normalPrice !== data?.salePrice &&
+                            <span className='text-light-red text-[13px] font-bold p-2 border border-light-red rounded bg-[#ebcac6a6]'>-{Math.ceil(100 - ((data?.salePrice * 100)/data?.normalPrice))}%</span>
+                        }
                     </div>
                 </div>
             </div>

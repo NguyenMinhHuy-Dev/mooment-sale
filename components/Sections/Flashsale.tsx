@@ -47,7 +47,7 @@ export default function Flashsale({ date }: { date: string }) {
         await fetch(process.env.NEXT_PUBLIC_API_URL + '/products')
         .then(res => res.json())
         .then(res => {
-            setProducts(res);
+            setProducts(res.filter((item: any) => item.salePrice !== item.normalPrice).sort((a: any, b:any) => b.sold - a.sold));
             setLoading(false);
         })
         .catch((err) => {
@@ -71,7 +71,7 @@ export default function Flashsale({ date }: { date: string }) {
                 Flashsale chính hãng
             </h2> 
             <div className='flex items-center'> 
-                <span className='text-white text-[16px] mr-2'>Kết thúc trong</span>
+                {/* <span className='text-white text-[16px] mr-2'>Kết thúc trong</span>
                 <span className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{days < 10 ? '0' + days :  days}</span>
                 <p className='text-white font-bold text-[16px] mx-1'>d :</p>
                 <span className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{hours < 10 ? '0' + hours :  hours}</span>
@@ -79,7 +79,7 @@ export default function Flashsale({ date }: { date: string }) {
                 <span  className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{minutes < 10 ? '0' + minutes :  minutes}</span>
                 <p  className='text-white font-bold text-[16px] mx-1'>m :</p>
                 <span className='font-bold text-black text-[20px] rounded p-1 block bg-white'>{seconds < 10 ? '0' + seconds :  seconds}</span>
-                <p  className='text-white font-bold text-[16px] mx-1'>s</p>
+                <p  className='text-white font-bold text-[16px] mx-1'>s</p> */}
             </div>
         </div>
 
@@ -108,17 +108,9 @@ export default function Flashsale({ date }: { date: string }) {
                         modules={[ Navigation, Pagination]} 
                         className="mySwiper h-full"
                     > 
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
-                        <SwiperSlide><ProductCard  isFlashsale={true}  data={products[0]} /> </SwiperSlide>  
+                        {products?.slice(1, products.length - 1).map((item: any) =>
+                            <SwiperSlide><ProductCard  isFlashsale={true}  data={item} /> </SwiperSlide>  
+                        )}  
                     </Swiper>
                 ) : (
                     <div className='w-full grid grid-cols-5 gap-[10px]'>
