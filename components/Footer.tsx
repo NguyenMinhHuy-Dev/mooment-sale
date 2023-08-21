@@ -15,10 +15,10 @@ export default function Footer() {
                 <h4 className='font-bold text-[16px] text-light-yellow'>VỀ MOOMENT</h4>
                 <ul className='w-full mt-2'>
                     <li className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/gioi-thieu" className='text-white text-[13px]'>Giới thiệu</Link>
+                        <Link href="https://agearle.vercel.app/about" className='text-white text-[13px]'>Giới thiệu</Link>
                     </li>
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Tuyển dụng</Link>
+                        <Link href="https://tuyendung.gearvn.com/" className='text-white text-[13px]'>Tuyển dụng</Link>
                     </li>
                 </ul>
             </div> 
@@ -26,16 +26,16 @@ export default function Footer() {
                 <h4 className='font-bold text-[16px] text-light-yellow'>CHÍNH SÁCH</h4>
                 <ul className='w-full mt-2'>
                     <li className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/gioi-thieu" className='text-white text-[13px]'>Chính sách bảo hành</Link>
+                        <Link href="https://agearle.vercel.app/privacy" className='text-white text-[13px]'>Chính sách bảo hành</Link>
                     </li>
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Chính sách thanh toán</Link>
+                        <Link href="https://agearle.vercel.app/privacy" className='text-white text-[13px]'>Chính sách thanh toán</Link>
                     </li>
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Chính sách giao hàng</Link>
+                        <Link href="https://agearle.vercel.app/privacy" className='text-white text-[13px]'>Chính sách giao hàng</Link>
                     </li>
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Chính sách bảo mật</Link>
+                        <Link href="https://agearle.vercel.app/privacy" className='text-white text-[13px]'>Chính sách bảo mật</Link>
                     </li>
                 </ul>
             </div> 
@@ -43,10 +43,10 @@ export default function Footer() {
                 <h4 className='font-bold text-[16px] text-light-yellow'>THÔNG TIN</h4>
                 <ul className='w-full mt-2'>
                     <li className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/gioi-thieu" className='text-white text-[13px]'>Hệ thống cửa hàng</Link>
+                        <Link href="https://gearvn.com/pages/he-thong-showroom-gearvn" className='text-white text-[13px]'>Hệ thống cửa hàng</Link>
                     </li>
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Trung tâm bảo hành</Link>
+                        <Link href="https://gearvn.com/pages/he-thong-showroom-gearvn" className='text-white text-[13px]'>Trung tâm bảo hành</Link>
                     </li> 
                 </ul>
             </div> 
@@ -54,13 +54,13 @@ export default function Footer() {
                 <h4 className='font-bold text-[16px] text-light-yellow'>TỔNG ĐÀI HỖ TRỢ (GỌI MIỄN PHÍ)</h4>
                 <ul className='w-full mt-2'>
                     <li className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/gioi-thieu" className='text-white text-[13px]'>Gọi mua: 0888278748 (8:00 - 21:00)</Link>
+                        <Link href="https://agearle.vercel.app/about" className='text-white text-[13px]'>Gọi mua: 0888278748 (8:00 - 21:00)</Link>
                     </li>
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Hotline: 0938745593 (8:00 - 21:00)</Link>
+                        <Link href="https://agearle.vercel.app/about" className='text-white text-[13px]'>Hotline: 0938745593 (8:00 - 21:00)</Link>
                     </li> 
                     <li  className='boldOnHover py-1 cursor-pointer'>
-                        <Link href="/tuyen-dung" className='text-white text-[13px]'>Email: cskh.mooment@gmail.com</Link>
+                        <Link href="https://agearle.vercel.app/about" className='text-white text-[13px]'>Email: cskh.mooment@gmail.com</Link>
                     </li>  
                 </ul>
             </div> 

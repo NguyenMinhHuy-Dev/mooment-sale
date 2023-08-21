@@ -26,6 +26,7 @@ export default function CheckOutPage() {
     const [gender, setGender] = useState(0); 
 
     const [note, setNote] = useState('');
+    const [voucher, setVoucher] = useState<null | any>({ price: 0 });
     
     const [province, setProvince] = useState(''); 
     const [district, setDistrict] = useState(''); 
@@ -70,6 +71,7 @@ export default function CheckOutPage() {
         var districtName: any = districts.find((e: any) => e.code === district);
         var provinceName: any = provinces.find((e: any) => e.code === province);
 
+        // process.env.NEXT_PUBLIC_API_URL
         await fetch(process.env.NEXT_PUBLIC_API_URL + '/orders', {
             cache: 'no-cache',
             method: "POST",
@@ -84,8 +86,9 @@ export default function CheckOutPage() {
                 payment: payment === 0 ? 'COD' : 'Paypal',
                 isAuth: isAuth,
                 orderDetail: cartItems,
-                totalCost: totalPriceCart,
+                totalCost: Number(totalPriceCart) - Number(voucher.price),
                 note: note,
+                voucher: voucher.price
         })})
         .then((res) => res.json())
         .then((res) => {
@@ -115,6 +118,7 @@ export default function CheckOutPage() {
         return provinceName.name_with_type;
     }
     
+    const [userData, setUserData] = useState<null | any>({}); 
     useEffect(() => {
         if (products.length === 0) {
             router.back();
@@ -137,7 +141,19 @@ export default function CheckOutPage() {
                 console.log(err);
                 setLoading(false);
             });
-        }
+        } 
+        const getUser = async () => {
+            // process.env.NEXT_PUBLIC_API_URL
+            await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/" + user._id)
+            .then((res) => res.json())
+            .then((res) => {
+                setUserData(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+            }
+            getUser();  
  
         scrollToTop();
         getProvinces();
@@ -378,25 +394,33 @@ export default function CheckOutPage() {
                         
                         {/* <div className='mt-4 w-full bg-white flex flex-col rounded-[10px] shadow-md p-5'> */}
                             <h3 className='font-medium mb-1 mt-4 text-[#757272] text-[16px] tracking-wide'>Khuyến mãi cho đơn hàng</h3>  
-                                
-                            <div className='w-full flex items-center justify-between'> 
-                                <div className='flex items-center'> 
-                                    <Image 
-                                        src="/logo-1.png"
-                                        alt="logo"
-                                        width={70}   
-                                        height={70}
-                                        className='object-contain' 
-                                    />
-                                    <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
-                                    <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                        <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
-                                        <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
-                                    </div>
-                                </div>  
-                                <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Thay đổi</span>
-                            </div>
-
+                            {isAuth &&  
+                                <div className='w-full flex items-center flex-col justify-between'> 
+                                    {userData?.vouchers?.map((item: any) => item.status !== 1 &&
+                                        <div key={item._id} className='w-full flex items-center my-1 justify-between'>
+                                            <div className='flex items-center'> 
+                                                <Image 
+                                                    src="/logo-1.png"
+                                                    alt="logo"
+                                                    width={70}   
+                                                    height={70}
+                                                    className='object-contain' 
+                                                />
+                                                <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
+                                                <div className='h-[80%] ml-2 flex flex-col justify-center'>
+                                                    <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
+                                                    <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                                </div>
+                                            </div>  
+                                            {voucher._id === item._id ? (
+                                                <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Đã chọn</span>
+                                            ) : (
+                                                <span onClick={(e) => setVoucher(item)} className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Chọn</span>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            }
                             <h3 className='font-medium mb-1 mt-6 text-[#757272] text-[16px] tracking-wide'>Phương thức thanh toán</h3>  
                             <div className='w-full grid grid-cols-2 gap-4'>
                                 <label className='mymain  w-full h-[100px] relative p-1 rounded-[10px] shadow-card cursor-pointer overflow-hidden'>
@@ -443,7 +467,7 @@ export default function CheckOutPage() {
                                 </div>
                                 <div className='w-full mt-2 flex items-end justify-between'>
                                     <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Voucher:</h3>  
-                                    <span className='font-black text-[15px] text-black'>-{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(0)}</span>
+                                    <span className='font-black text-[15px] text-black'>-{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(voucher?.price)}</span>
                                 </div>
                                 <div className='w-full mt-2 flex items-end justify-between'>
                                     <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Phí vận chuyển:</h3>  
@@ -455,7 +479,7 @@ export default function CheckOutPage() {
                                 <div className='w-full mt-2 flex items-end justify-between'>
                                     <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Thành tiền:</h3>  
                                     <span className='font-black text-[20px] text-light-red'>
-                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPriceCart)}
+                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPriceCart - voucher?.price)}
                                     </span>
                                 </div>
                             </div>

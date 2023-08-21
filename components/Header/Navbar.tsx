@@ -49,7 +49,7 @@ const Navbar = () => {
               </Link>
 
               {/* CHI NHÁNH */}
-              <Link href="/chi-nhanh" className='min-w-[120px] px-2 h-full text-[13px] flex justify-center items-center border-b-[2px] border-white hover:border-b-[2px] hover:border-black transition ease-in-out'>
+              <Link href="https://gearvn.com/pages/he-thong-showroom-gearvn" className='min-w-[120px] px-2 h-full text-[13px] flex justify-center items-center border-b-[2px] border-white hover:border-b-[2px] hover:border-black transition ease-in-out'>
                   <LocationOnOutlinedIcon className='myicon'/>
                   <p>Chi nhánh</p> 
               </Link>

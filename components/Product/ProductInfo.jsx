@@ -35,6 +35,7 @@ import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation'
 
 export default function ProductInfo({ product }) {
+    const [user, setUser] = useState({}); 
     const router = useRouter()
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null); 
@@ -43,7 +44,7 @@ export default function ProductInfo({ product }) {
     const dispatch = useAppDispatch(); 
 
     const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
-    const user = useAppSelector((state) => state.authReducer.value.user);
+    const userData = useAppSelector((state) => state.authReducer.value.user);
     
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenSignIn, setIsOpenSignIn] = useState(false);
@@ -116,6 +117,21 @@ export default function ProductInfo({ product }) {
         setAmount(1);
         router.push('/thanh-toan');
     }
+
+    useEffect(() => { 
+        const getUser = async () => {
+            // process.env.NEXT_PUBLIC_API_URL
+            await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/" + userData._id)
+            .then((res) => res.json())
+            .then((res) => {
+              setUser(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          }
+          getUser(); 
+    }, []);
  
     return (
         <div className='mygrid pt-[5px] min-h-[500px] flex justify-between'>
@@ -274,10 +290,11 @@ export default function ProductInfo({ product }) {
                         <div className='w-full p-3 max-h-[70%] bg-light-gray mt-2 rounded-[10px]'>
                             <div className='w-full flex items-center justify-between'>
                                 <h3 className='font-black text-[15px[ text-white'>Voucher của bạn</h3>
-                                <Link href="/tai-khoan/voucher" className='text-white text-[13px] underline hover:text-light-yellow'>Xem tất cả</Link>
+                                <Link href="/tai-khoan?ma-giam-gia" className='text-white text-[13px] underline hover:text-light-yellow'>Xem tất cả</Link>
                             </div>
                             <div className='w-full mt-2'>
                                 <ul className='w-full'>
+                                    {user?.vouchers?.map((item) =>  
                                     <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
                                         <div className='h-full flex items-center'> 
                                             <Image 
@@ -289,67 +306,13 @@ export default function ProductInfo({ product }) {
                                             />
                                             <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
                                             <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
-                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ {item?.price/1000}K</h4>
+                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item?.condition)}</p>
                                             </div>
                                         </div>
-                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span> */}
-                                        <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span>
-                                    </li>
-                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
-                                        <div className='h-full flex items-center'> 
-                                            <Image 
-                                                src="/logo-1.png"
-                                                alt="logo"
-                                                width={70}   
-                                                height={70}
-                                                className='object-contain' 
-                                            />
-                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
-                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
-                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
-                                            </div>
-                                        </div>
-                                        <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span>
-                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span> */}
-                                    </li>
-                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
-                                        <div className='h-full flex items-center'> 
-                                            <Image 
-                                                src="/logo-1.png"
-                                                alt="logo"
-                                                width={70}   
-                                                height={70}
-                                                className='object-contain' 
-                                            />
-                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
-                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
-                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
-                                            </div>
-                                        </div>
-                                        <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span>
-                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span> */}
-                                    </li>
-                                    <li className='w-full flex items-center justify-between bg-white h-[65px] my-2 rounded-[10px]'>
-                                        <div className='h-full flex items-center'> 
-                                            <Image 
-                                                src="/logo-1.png"
-                                                alt="logo"
-                                                width={70}   
-                                                height={70}
-                                                className='object-contain' 
-                                            />
-                                            <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
-                                            <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                                <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
-                                                <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
-                                            </div>
-                                        </div>
-                                        <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span>
-                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-red mr-2'>Bỏ chọn</span> */}
-                                    </li>
+                                        {/* <span className='font-medium cursor-pointer text-[15px] text-light-yellow mr-2'>Áp dụng</span> */} 
+                                    </li> 
+                                    )}
                                 </ul>
                             </div>
                         </div>

@@ -299,8 +299,7 @@ export default function UserOrder() {
                                         />
                                         <div className='w-[2px] h-[80%] bg-[#e0e0e0]'></div>
                                         <div className='h-[80%] ml-2 flex flex-col justify-center'>
-                                            <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ 100K</h4>
-                                            <p className='font-normal text-[13px] text-[#a3a3a3]'>Đơn tối thiểu 1000000</p>
+                                            <h4 className='font-semibold text-[15px] text-black'>MÃ GIẢM GIÁ {order.voucher/1000}K</h4> 
                                         </div>
                                     </div>   
                                         <span className='font-medium cursor-default text-[15px] text-light-red mr-2'>Đã dùng</span>
@@ -317,7 +316,7 @@ export default function UserOrder() {
                                     
                                     <div className='w-full mt-2 flex items-end justify-between'>
                                         <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Voucher:</h3>  
-                                        <span className='font-black text-[15px] text-black'>-{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(0)}</span>
+                                        <span className='font-black text-[15px] text-black'>-{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.voucher)}</span>
                                     </div>
                                     <div className='w-full mt-2 flex items-end justify-between'>
                                         <h3 className='font-medium mb-1 text-[#757272] text-[14px] tracking-wide'>Phí vận chuyển:</h3>  
