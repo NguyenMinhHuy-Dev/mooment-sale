@@ -10,7 +10,7 @@ export default function VouchersSection() {
   useEffect(() => {
     const getData = async () => {
       // process.env.NEXT_PUBLIC_API_URL
-      await fetch("http://localhost:3001/v1" + "/vouchers")
+      await fetch(process.env.NEXT_PUBLIC_API_URL + "/vouchers")
       .then((res) => res.json())
       .then((res) => {
         setData(res);
