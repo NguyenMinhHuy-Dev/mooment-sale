@@ -33,7 +33,7 @@ export default function VoucherCard({data}: {data: any}) {
             return;
         }
         // process.env.NEXT_PUBLIC_API_URL
-        await fetch("http://localhost:3001/v1" + "/users/" + user._id + "/vouchers", {
+        await fetch(process.env.NEXT_PUBLIC_API_URL + "/users/" + user._id + "/vouchers", {
             cache: 'no-cache',
             method: "PUT",
             body: JSON.stringify({id: data?._id}),
